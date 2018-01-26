@@ -1,0 +1,7 @@
+/bin/
+/.settings/
+/config
+/.project
+/.classpath
+/.cproject
+/dist/
