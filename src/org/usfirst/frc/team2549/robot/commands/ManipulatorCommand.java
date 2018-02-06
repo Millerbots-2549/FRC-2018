@@ -20,6 +20,7 @@ public class ManipulatorCommand extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	speedConst = 1;
+    	Robot.manipulator.servoRelease(false);
     }
     
     protected void executeJoysticks() {
@@ -27,9 +28,11 @@ public class ManipulatorCommand extends Command {
     		Robot.manipulator.spinMotors(speed);
     	else if(Robot.oi.joyManipulatorOut.get())
     		Robot.manipulator.spinMotors(-speed);
+    	else Robot.manipulator.spinMotors(0);
     }
     
     protected void executeController() {
+    	// Motors
     	speed = Robot.oi.ctrl.getRawAxis(Robot.oi.ctrlBoxIn)
     			- Robot.oi.ctrl.getRawAxis(Robot.oi.ctrlBoxOut);
     	
@@ -39,6 +42,12 @@ public class ManipulatorCommand extends Command {
     		speed = -speedConst;
 
     	Robot.manipulator.spinMotors(speed);
+    	
+    	// Release Servo
+    	if(Robot.oi.ctrlServoUp.get())
+    		Robot.manipulator.servoRelease(true);
+    	else if(Robot.oi.ctrlServoDown.get())
+    		Robot.manipulator.servoRelease(false);
     }
 
     // Called repeatedly when this Command is scheduled to run

@@ -2,6 +2,8 @@ package org.usfirst.frc.team2549.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.AnalogInput;
 
 import org.usfirst.frc.team2549.robot.Robot;
 import org.usfirst.frc.team2549.robot.RobotMap;
@@ -16,9 +18,11 @@ public class LiftSubsystem extends Subsystem {
     // here. Call these from Commands.
 	
 	private Talon motor;
+	//public AnalogInput hal;
 
 	public LiftSubsystem() {
 		motor = new Talon(RobotMap.liftMotor);
+		//hal = new AnalogInput(0);
 	}
 	
     public void initDefaultCommand() {
@@ -28,8 +32,15 @@ public class LiftSubsystem extends Subsystem {
     }
     
     public void driveLift(double speed) {
-    	// we don't know how this works yet
     	motor.set(speed);
     }
+    
+    /*public boolean getHal() {
+    	if(hal.getVoltage() > 3)
+    		return true;
+    	else if(hal.getVoltage() < 3)
+    		return false;
+    	else return false;
+    }//*/
 }
 

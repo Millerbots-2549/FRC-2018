@@ -1,10 +1,13 @@
 package org.usfirst.frc.team2549.robot.subsystems;
 
+import org.usfirst.frc.team2549.robot.Robot;
 import org.usfirst.frc.team2549.robot.RobotMap;
 import org.usfirst.frc.team2549.robot.commands.DriveCommand;
+import com.analog.adis16448.frc.ADIS16448_IMU;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -18,13 +21,27 @@ public class DrivetrainSubsystem extends Subsystem {
 	private RobotDrive drive;
 	private Talon leftMotor;
 	private Talon rightMotor;
+	private Encoder leftEnc;
+	private Encoder rightEnc;
+	private ADIS16448_IMU imu;
 	
-	enum motorSide { kLeft, kRight };
+	private double halfSpeed;
+	private double fullSpeed;
+	private double speed;
 	
 	public DrivetrainSubsystem() {
 		leftMotor = new Talon(RobotMap.leftDriveMotor);
 		rightMotor = new Talon(RobotMap.rightDriveMotor);
 		drive = new RobotDrive(leftMotor, rightMotor);
+		
+		leftEnc = new Encoder(RobotMap.leftDriveEnc[0], RobotMap.leftDriveEnc[1]);
+		rightEnc = new Encoder(RobotMap.rightDriveEnc[0], RobotMap.rightDriveEnc[1]);
+	
+		imu = new ADIS16448_IMU();
+		
+		halfSpeed = .5;
+		fullSpeed = 1;
+		speed = fullSpeed;
 	}
 
     public void initDefaultCommand() {
@@ -33,20 +50,38 @@ public class DrivetrainSubsystem extends Subsystem {
     	setDefaultCommand(new DriveCommand());
     }
     
-    public void driveTank(double left, double right) {
-    	drive.tankDrive(left, right);
+	public void driveTank(double left, double right) {
+    	drive.tankDrive(left * speed, right * speed);
     }
     
-    public double getMotor(motorSide side) {
-    	switch(side)
-    	{
-    	case kLeft:
+    public void setSpeed(double speed) {
+    	this.speed = speed;
+    }
+    
+    public double getMotor(int side) {
+    	switch(side) {
+    	case 0:
     		return leftMotor.get();
-		case kRight:
+		case 1:
     		return rightMotor.get();
 		default:
-			return .0123456789;
+			return .0;
     	}
+    }
+    
+    public double getEncoder(int side) {
+    	switch(side) {
+    	case 0:
+    		return leftEnc.get();
+    	case 1:
+    		return rightEnc.get();
+    	default:
+    		return .0;
+    	}
+    }
+    
+    public ADIS16448_IMU getIMU() {
+    	return this.imu;
     }
 }
 

@@ -18,25 +18,36 @@ public class OI {
 	public Joystick ctrl = new Joystick(portCtrl);
 
 	// Axes
-	public int joyDriveAxis = 5;
+	public int joyDriveAxis = 1;
+	
 	// Buttons
-	public int joyLiftUp = 0;
-	public int joyLiftDown = 4;
+	public int joyLiftUpN = 3;
+	public int joyLiftDownN = 2;
 	public int joyManipulatorInN = 2;
 	public int joyManipulatorOutN = 3;
-	public Button joyManipulatorIn = new JoystickButton(joyR, joyManipulatorInN);
-	public Button joyManipulatorOut = new JoystickButton(joyR, joyManipulatorOutN);
+	
+	public Button joyLiftUp = new JoystickButton(joyR, joyLiftUpN);
+	public Button joyLiftDown = new JoystickButton(joyR, joyLiftDownN);
+	public Button joyManipulatorIn = new JoystickButton(joyL, joyManipulatorInN);
+	public Button joyManipulatorOut = new JoystickButton(joyL, joyManipulatorOutN);
 
 	// Axes
-	public int ctrlDriveL = 1;
-	public int ctrlDriveR = 5;
+	public int ctrlDriveL = 5;
+	public int ctrlDriveR = 1;
 	public int ctrlBoxIn = 2;
 	public int ctrlBoxOut = 3;
+	
 	// Buttons
 	public int ctrlLiftUp = 0;
-	public int ctrlLiftDown = 4;
-	public int ctrlManipulatorInN = 5; // FIND OUT
-	public int ctrlManipulatorOutN = 6; // FIND OUT
+	public int ctrlLiftDown = 180;
+	
+	private int ctrlServoUpN = 4;
+	private int ctrlServoDownN = 2;
+	private int ctrlManipulatorInN = 5; // FIND OUT
+	private int ctrlManipulatorOutN = 6; // FIND OUT
+	
+	public Button ctrlServoUp = new JoystickButton(ctrl, ctrlServoUpN);
+	public Button ctrlServoDown = new JoystickButton(ctrl, ctrlServoDownN);
 	public Button ctrlManipulatorIn = new JoystickButton(ctrl, ctrlManipulatorInN);
 	public Button ctrlManipulatorOut = new JoystickButton(ctrl, ctrlManipulatorOutN);
 

@@ -1,7 +1,9 @@
 package org.usfirst.frc.team2549.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Servo;
 
 import org.usfirst.frc.team2549.robot.RobotMap;
 import org.usfirst.frc.team2549.robot.commands.ManipulatorCommand;
@@ -15,9 +17,14 @@ public class ManipulatorSubsystem extends Subsystem {
     // here. Call these from Commands.
 
 	private Talon motors;
+	private Servo servo;
+	private double servoDownPos, servoUpPos;
 
 	public ManipulatorSubsystem() {
 		motors = new Talon(RobotMap.manipulatorMotors);
+		servo = new Servo(RobotMap.releaseServo);
+		servoDownPos = 1;
+		servoUpPos = 0; // change these
 	}
 
     public void initDefaultCommand() {
@@ -28,6 +35,21 @@ public class ManipulatorSubsystem extends Subsystem {
 
     public void spinMotors(double speed) {
     	motors.set(speed);
+    }
+    
+    public void servoRelease(boolean set) {
+    	if(set)
+    		servo.set(servoDownPos);
+    	else if(!set)
+    		servo.set(servoUpPos);
+    }
+    
+    public double getMotors() {
+    	return motors.getSpeed();
+    }
+    
+    public double getServo() {
+    	return servo.getPosition();
     }
 }
 

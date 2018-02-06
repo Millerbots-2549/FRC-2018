@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 
 import org.usfirst.frc.team2549.robot.commands.DriveCommand;
 import org.usfirst.frc.team2549.robot.commands.ManipulatorCommand;
@@ -29,18 +32,22 @@ public class Robot extends IterativeRobot {
 	public static final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
 	public static final LiftSubsystem lift = new LiftSubsystem();
 	public static OI oi;
+	
+	//public DigitalInput limit;
 
 	Command autonomousCommand;
 	SendableChooser<Command> autoChooser = new SendableChooser<>();
 	SendableChooser<Command> ctrlChooser = new SendableChooser<>();
-	
+	SendableChooser<Command> speedChooser = new SendableChooser<>();
+
 	public enum ctrlTypes { kController, kJoysticks };
 	public static ctrlTypes ctrlType = ctrlTypes.kController;
+
+	private DriveCommand useJoysticks = new DriveCommand();
+	private ManipulatorCommand useController = new ManipulatorCommand();
 	
-	private DriveCommand driveCommand = new DriveCommand();
-	private ManipulatorCommand manipulatorCommand = new ManipulatorCommand();
-
-
+	private DriveCommand fullSpeed = new DriveCommand();
+	private ManipulatorCommand halfSpeed = new ManipulatorCommand();
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -50,13 +57,18 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		//autoChooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		
+		//limit = new DigitalInput(1);
+
 		// could be problems with these random commands
-		ctrlChooser.addDefault("Joysticks", driveCommand);
-		ctrlChooser.addObject("Controller", manipulatorCommand);		
+		ctrlChooser.addDefault("Joysticks", useJoysticks);
+		ctrlChooser.addObject("Controller", useController);
+		
+		speedChooser.addDefault("Full Speed", fullSpeed);
+		speedChooser.addObject("Half Speed", halfSpeed);
 		
 		SmartDashboard.putData("Auto mode", autoChooser);
 		SmartDashboard.putData("Controller type", ctrlChooser);
+		SmartDashboard.putData("Speed", speedChooser);
 	}
 
 	/**
@@ -111,23 +123,24 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopInit() {
-		if(ctrlChooser.getSelected() == driveCommand) {
+		if(ctrlChooser.getSelected() == useJoysticks) {
 			ctrlType = ctrlTypes.kJoysticks;
 			System.out.println("Using joysticks");
 		}
-		else if(ctrlChooser.getSelected() == manipulatorCommand) {
+		else if(ctrlChooser.getSelected() == useController) {
 			ctrlType = ctrlTypes.kController;
 			System.out.println("Using controller");
 		}
 		else System.out.println("Controller type not specified");
-		
+
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-			
+
+		updateDashboard();
 	}
 
 	/**
@@ -135,7 +148,15 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		if(speedChooser.getSelected() == fullSpeed) {
+			drivetrain.setSpeed(1);
+		}
+		else if(speedChooser.getSelected() == halfSpeed) {
+			drivetrain.setSpeed(.5);
+		}
+		
 		Scheduler.getInstance().run();
+		updateDashboard();
 	}
 
 	/**
@@ -144,5 +165,29 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		LiveWindow.run();
+	}
+
+	private void updateDashboard() {
+		// Drivetrain
+		SmartDashboard.putNumber("Left Motors", drivetrain.getMotor(0));
+    	SmartDashboard.putNumber("Right Motors", drivetrain.getMotor(1));
+    	SmartDashboard.putNumber("Left Encoder", drivetrain.getEncoder(0));
+    	SmartDashboard.putNumber("Right Encoder", drivetrain.getEncoder(1));
+    	
+    	SmartDashboard.putNumber("IMU Temp", drivetrain.getIMU().getTemperature());
+    	SmartDashboard.putNumber("IMU Pres", drivetrain.getIMU().getBarometricPressure());
+    	SmartDashboard.putNumber("IMU MagX", drivetrain.getIMU().getMagX());
+    	SmartDashboard.putNumber("IMU MagY", drivetrain.getIMU().getMagY());
+    	SmartDashboard.putNumber("IMU MagZ", drivetrain.getIMU().getMagZ());
+    	
+    	// Manipulator
+    	SmartDashboard.putNumber("Manip Motors", manipulator.getMotors());
+    	SmartDashboard.putNumber("Servo Release", manipulator.getServo());
+    	// Lift
+    	//SmartDashboard.putNumber("Hal says:", lift.hal.getAverageVoltage());
+    	//SmartDashboard.putNumber("Hal sayss:", lift.hal.getVoltage());
+    	//SmartDashboard.putNumber("Hal saysss:", lift.hal.getValue());
+    	//SmartDashboard.putBoolean("This means", lift.getHal());
+    	//SmartDashboard.putBoolean("limit", limit.get());
 	}
 }

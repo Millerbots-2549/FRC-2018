@@ -24,13 +24,19 @@ public class LiftCommand extends Command {
     }
 
     protected void executeJoysticks() {
+    	if(Robot.oi.joyLiftUp.get() == true)
+    		Robot.lift.driveLift(speed);
+    	else if(Robot.oi.joyLiftDown.get() == true)
+    		Robot.lift.driveLift(-speed);
+    	else Robot.lift.driveLift(0);
     }
     
     protected void executeController() {
-    	if(Robot.oi.ctrl.getPOV() == 0)
+    	if(Robot.oi.ctrl.getPOV() == Robot.oi.ctrlLiftUp)
     		Robot.lift.driveLift(speed);
-    	else if(Robot.oi.ctrl.getPOV() == 4)
+    	else if(Robot.oi.ctrl.getPOV() == Robot.oi.ctrlLiftDown)
     		Robot.lift.driveLift(-speed);
+    	else Robot.lift.driveLift(0);
     }
 
     // Called repeatedly when this Command is scheduled to run
