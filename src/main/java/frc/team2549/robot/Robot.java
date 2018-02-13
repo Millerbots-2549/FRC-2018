@@ -5,8 +5,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.team2549.robot.commands.DriveCommand;
-import frc.team2549.robot.commands.ManipulatorCommand;
 import frc.team2549.robot.subsystems.DrivetrainSubsystem;
 import frc.team2549.robot.subsystems.LiftSubsystem;
 import frc.team2549.robot.subsystems.ManipulatorSubsystem;
@@ -25,12 +23,10 @@ public class Robot extends IterativeRobot {
     public static final LiftSubsystem lift = new LiftSubsystem();
 
     private static final SendableChooser<Command> autoChooser = new SendableChooser<>();
-    private static final SendableChooser<Command> ctrlChooser = new SendableChooser<>();
-    private static final DriveCommand driveCommand = new DriveCommand();
-    private static final ManipulatorCommand manipulatorCommand = new ManipulatorCommand();
+    private static final SendableChooser<ControllerType> ctrlChooser = new SendableChooser<>();
 
     public static OI oi;
-    public static ctrlTypes ctrlType = ctrlTypes.kController;
+
     private Command autonomousCommand;
 
     /**
@@ -40,12 +36,9 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         oi = new OI();
-        //autoChooser.addDefault("Default Auto", new ExampleCommand());
-        // chooser.addObject("My Auto", new MyAutoCommand());
 
-        // could be problems with these random commands
-        ctrlChooser.addDefault("Joysticks", driveCommand);
-        ctrlChooser.addObject("Controller", manipulatorCommand);
+        ctrlChooser.addDefault("Joysticks", ControllerType.joystick);
+        ctrlChooser.addObject("Controller", ControllerType.controller);
 
         SmartDashboard.putData("Auto mode", autoChooser);
         SmartDashboard.putData("Controller type", ctrlChooser);
@@ -103,11 +96,9 @@ public class Robot extends IterativeRobot {
 
     @Override
     public void teleopInit() {
-        if (ctrlChooser.getSelected() == driveCommand) {
-            ctrlType = ctrlTypes.kJoysticks;
+        if (ctrlChooser.getSelected() == ControllerType.joystick) {
             System.out.println("Using joysticks");
-        } else if (ctrlChooser.getSelected() == manipulatorCommand) {
-            ctrlType = ctrlTypes.kController;
+        } else if (ctrlChooser.getSelected() == ControllerType.controller) {
             System.out.println("Using controller");
         } else System.out.println("Controller type not specified");
 
@@ -117,7 +108,6 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null)
             autonomousCommand.cancel();
-
     }
 
     /**
@@ -135,5 +125,9 @@ public class Robot extends IterativeRobot {
     public void testPeriodic() {
     }
 
-    public enum ctrlTypes {kController, kJoysticks}
+    public static ControllerType getControllerType() {
+        return ctrlChooser.getSelected();
+    }
+
+    public enum ControllerType {controller, joystick}
 }

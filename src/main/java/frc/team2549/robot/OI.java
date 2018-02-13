@@ -9,13 +9,14 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+    ///////////////////////////////////////////////////////////////////////////
+    // Joy Sticks
+    ///////////////////////////////////////////////////////////////////////////
     public int portJoyL = 0;
     public int portJoyR = 1;
-    public int portCtrl = 2;
 
     public Joystick joyL = new Joystick(portJoyL);
     public Joystick joyR = new Joystick(portJoyR);
-    public Joystick ctrl = new Joystick(portCtrl);
 
     // Axes
     public int joyDriveAxis = 5;
@@ -27,6 +28,11 @@ public class OI {
     public Button joyManipulatorIn = new JoystickButton(joyR, joyManipulatorInN);
     public Button joyManipulatorOut = new JoystickButton(joyR, joyManipulatorOutN);
 
+    ///////////////////////////////////////////////////////////////////////////
+    // CONTROLLER
+    ///////////////////////////////////////////////////////////////////////////
+    public int portCtrl = 2;
+    public Joystick ctrl = new Joystick(portCtrl);
     // Axes
     public int ctrlDriveL = 1;
     public int ctrlDriveR = 5;

@@ -11,23 +11,24 @@ import frc.team2549.robot.commands.ManipulatorCommand;
  */
 public class ManipulatorSubsystem extends Subsystem {
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-
-    private Talon motors;
+    private static final double SPEED = 1.0;
+    private Talon motor;
 
     public ManipulatorSubsystem() {
-        motors = new Talon(RobotMap.manipulatorMotors);
+        super(ManipulatorSubsystem.class.getSimpleName());
+        motor = new Talon(RobotMap.manipulatorMotors);
     }
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
         setDefaultCommand(new ManipulatorCommand());
     }
 
-    public void spinMotors(double speed) {
-        motors.set(speed);
+    public void takeIn() {
+        motor.set(SPEED);
+    }
+
+    public void pushOut() {
+        motor.set(-SPEED);
     }
 }
 

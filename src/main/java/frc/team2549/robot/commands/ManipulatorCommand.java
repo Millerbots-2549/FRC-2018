@@ -7,46 +7,31 @@ import frc.team2549.robot.Robot;
 /**
  *
  */
-public class ManipulatorCommand extends Command {
-
-    double speed, speedConst;
+public class ManipulatorCommand extends MyCommand {
 
     public ManipulatorCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        super(ManipulatorCommand.class.getSimpleName());
         requires(Robot.manipulator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        speedConst = 1;
     }
 
     protected void executeJoysticks() {
         if (Robot.oi.joyManipulatorIn.get())
-            Robot.manipulator.spinMotors(speed);
+            Robot.manipulator.takeIn();
         else if (Robot.oi.joyManipulatorOut.get())
-            Robot.manipulator.spinMotors(-speed);
+            Robot.manipulator.pushOut();
     }
 
     protected void executeController() {
-        speed = Robot.oi.ctrl.getRawAxis(Robot.oi.ctrlBoxIn)
-                - Robot.oi.ctrl.getRawAxis(Robot.oi.ctrlBoxOut);
-
         if (Robot.oi.ctrlManipulatorIn.get())
-            speed = speedConst;
+            Robot.manipulator.takeIn();
         else if (Robot.oi.ctrlManipulatorOut.get())
-            speed = -speedConst;
-
-        Robot.manipulator.spinMotors(speed);
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-        if (Robot.ctrlType == Robot.ctrlTypes.kJoysticks)
-            executeJoysticks();
-        else if (Robot.ctrlType == Robot.ctrlTypes.kController)
-            executeController();
+            Robot.manipulator.pushOut();
     }
 
     // Make this return true when this Command no longer needs to run execute()

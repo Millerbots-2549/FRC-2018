@@ -13,21 +13,24 @@ public class LiftSubsystem extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
+    private static final double SPEED = 1.0;
     private Talon motor;
 
     public LiftSubsystem() {
+        super(LiftSubsystem.class.getSimpleName());
         motor = new Talon(RobotMap.liftMotor);
     }
 
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
         setDefaultCommand(new LiftCommand());
     }
 
-    public void driveLift(double speed) {
-        // we don't know how this works yet
-        motor.set(speed);
+    public void raiseLift() {
+        motor.set(SPEED);
+    }
+
+    public void lowerLift() {
+        motor.set(-SPEED);
     }
 }
 

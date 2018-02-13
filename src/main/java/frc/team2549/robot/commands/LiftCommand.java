@@ -6,19 +6,15 @@ import frc.team2549.robot.Robot;
 /**
  *
  */
-public class LiftCommand extends Command {
-
-    private double speed;
+public class LiftCommand extends MyCommand {
 
     public LiftCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+        super(LiftCommand.class.getSimpleName());
         requires(Robot.lift);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        speed = 1;
     }
 
     protected void executeJoysticks() {
@@ -26,17 +22,9 @@ public class LiftCommand extends Command {
 
     protected void executeController() {
         if (Robot.oi.ctrl.getPOV() == 0)
-            Robot.lift.driveLift(speed);
+            Robot.lift.raiseLift();
         else if (Robot.oi.ctrl.getPOV() == 4)
-            Robot.lift.driveLift(-speed);
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-        if (Robot.ctrlType == Robot.ctrlTypes.kJoysticks)
-            executeJoysticks();
-        else if (Robot.ctrlType == Robot.ctrlTypes.kController)
-            executeController();
+            Robot.lift.lowerLift();
     }
 
     // Make this return true when this Command no longer needs to run execute()
