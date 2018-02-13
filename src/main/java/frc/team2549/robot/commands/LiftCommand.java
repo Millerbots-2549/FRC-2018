@@ -8,7 +8,7 @@ import frc.team2549.robot.Robot;
  */
 public class LiftCommand extends Command {
 
-    double speed, constSpeed;
+    private double speed;
 
     public LiftCommand() {
         // Use requires() here to declare subsystem dependencies
@@ -18,8 +18,7 @@ public class LiftCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        constSpeed = 1;
-        speed = constSpeed;
+        speed = 1;
     }
 
     protected void executeJoysticks() {

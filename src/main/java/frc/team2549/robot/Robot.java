@@ -3,7 +3,6 @@ package frc.team2549.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team2549.robot.commands.DriveCommand;
@@ -24,19 +23,15 @@ public class Robot extends IterativeRobot {
     public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
     public static final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
     public static final LiftSubsystem lift = new LiftSubsystem();
+
+    private static final SendableChooser<Command> autoChooser = new SendableChooser<>();
+    private static final SendableChooser<Command> ctrlChooser = new SendableChooser<>();
+    private static final DriveCommand driveCommand = new DriveCommand();
+    private static final ManipulatorCommand manipulatorCommand = new ManipulatorCommand();
+
     public static OI oi;
-
-    private Command autonomousCommand;
-    private SendableChooser<Command> autoChooser = new SendableChooser<>();
-    private SendableChooser<Command> ctrlChooser = new SendableChooser<>();
-
-    public enum ctrlTypes {kController, kJoysticks}
-
     public static ctrlTypes ctrlType = ctrlTypes.kController;
-
-    private DriveCommand driveCommand = new DriveCommand();
-    private ManipulatorCommand manipulatorCommand = new ManipulatorCommand();
-
+    private Command autonomousCommand;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -138,6 +133,7 @@ public class Robot extends IterativeRobot {
      */
     @Override
     public void testPeriodic() {
-        LiveWindow.run();
     }
+
+    public enum ctrlTypes {kController, kJoysticks}
 }

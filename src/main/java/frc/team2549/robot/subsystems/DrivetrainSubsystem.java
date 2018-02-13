@@ -1,8 +1,8 @@
 package frc.team2549.robot.subsystems;
 
-import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.team2549.robot.RobotMap;
 import frc.team2549.robot.commands.DriveCommand;
 
@@ -14,19 +14,17 @@ public class DrivetrainSubsystem extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    private RobotDrive drive;
+    private DifferentialDrive drive;
     private Talon leftMotor;
     private Talon rightMotor;
-
-    enum motorSide {kLeft, kRight}
-
-    ;
 
     public DrivetrainSubsystem() {
         leftMotor = new Talon(RobotMap.leftDriveMotor);
         rightMotor = new Talon(RobotMap.rightDriveMotor);
-        drive = new RobotDrive(leftMotor, rightMotor);
+        drive = new DifferentialDrive(leftMotor, rightMotor);
     }
+
+    ;
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
@@ -48,5 +46,7 @@ public class DrivetrainSubsystem extends Subsystem {
                 return .0123456789;
         }
     }
+
+    enum motorSide {kLeft, kRight}
 }
 
