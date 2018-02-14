@@ -48,6 +48,8 @@ public class Robot extends IterativeRobot {
 	
 	private DriveCommand fullSpeed = new DriveCommand();
 	private ManipulatorCommand halfSpeed = new ManipulatorCommand();
+	
+	public NetworkTable table;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -69,6 +71,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", autoChooser);
 		SmartDashboard.putData("Controller type", ctrlChooser);
 		SmartDashboard.putData("Speed", speedChooser);
+		
+		table = NetworkTable.getTable("SmartDashboard");
 	}
 
 	/**
@@ -183,11 +187,14 @@ public class Robot extends IterativeRobot {
     	// Manipulator
     	SmartDashboard.putNumber("Manip Motors", manipulator.getMotors());
     	SmartDashboard.putNumber("Servo Release", manipulator.getServo());
+    	
     	// Lift
+    	SmartDashboard.putNumber("Lift Motor", lift.getMotor());
     	//SmartDashboard.putNumber("Hal says:", lift.hal.getAverageVoltage());
     	//SmartDashboard.putNumber("Hal sayss:", lift.hal.getVoltage());
     	//SmartDashboard.putNumber("Hal saysss:", lift.hal.getValue());
     	//SmartDashboard.putBoolean("This means", lift.getHal());
     	//SmartDashboard.putBoolean("limit", limit.get());
+    	SmartDashboard.putBoolean("sensing_cube", table.getBoolean("sensing_cube", false));
 	}
 }

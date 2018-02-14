@@ -6,6 +6,7 @@ import org.usfirst.frc.team2549.robot.commands.DriveCommand;
 import com.analog.adis16448.frc.ADIS16448_IMU;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -32,6 +33,8 @@ public class DrivetrainSubsystem extends Subsystem {
 	public DrivetrainSubsystem() {
 		leftMotor = new Talon(RobotMap.leftDriveMotor);
 		rightMotor = new Talon(RobotMap.rightDriveMotor);
+		leftMotor.setInverted(true);
+		rightMotor.setInverted(true);
 		drive = new RobotDrive(leftMotor, rightMotor);
 		
 		leftEnc = new Encoder(RobotMap.leftDriveEnc[0], RobotMap.leftDriveEnc[1]);

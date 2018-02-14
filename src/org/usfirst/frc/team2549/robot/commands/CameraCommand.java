@@ -1,30 +1,25 @@
-package org.usfirst.frc.team2549.robot.commands.auto;
-
-import org.usfirst.frc.team2549.robot.Robot;
+package org.usfirst.frc.team2549.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.CameraServer;
 
 /**
  *
  */
-public class ManipulatorIn extends Command {
-	
-	double speed;
+public class CameraCommand extends Command {
 
-    public ManipulatorIn() {
+    public CameraCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.manipulator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	speed = 1;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.manipulator.spinMotors(speed);
+    	CameraServer.getInstance().startAutomaticCapture();
     }
 
     // Make this return true when this Command no longer needs to run execute()

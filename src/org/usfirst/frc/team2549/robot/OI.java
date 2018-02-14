@@ -23,13 +23,13 @@ public class OI {
 	// Buttons
 	public int joyLiftUpN = 3;
 	public int joyLiftDownN = 2;
-	public int joyManipulatorInN = 2;
-	public int joyManipulatorOutN = 3;
+	public int joyManipulatorInN = 1;
+	public int joyManipulatorOutN = 1;
 	
 	public Button joyLiftUp = new JoystickButton(joyR, joyLiftUpN);
 	public Button joyLiftDown = new JoystickButton(joyR, joyLiftDownN);
 	public Button joyManipulatorIn = new JoystickButton(joyL, joyManipulatorInN);
-	public Button joyManipulatorOut = new JoystickButton(joyL, joyManipulatorOutN);
+	public Button joyManipulatorOut = new JoystickButton(joyR, joyManipulatorOutN);
 
 	// Axes
 	public int ctrlDriveL = 5;

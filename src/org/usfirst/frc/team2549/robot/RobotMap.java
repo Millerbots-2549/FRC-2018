@@ -22,7 +22,8 @@ public class RobotMap {
 	public static int manipulatorMotors = 2;
 	public static int liftMotor = 3;
 	public static int releaseServo = 4;
-	
 	public static int[] rightDriveEnc = {0, 1};
 	public static int[] leftDriveEnc = {2, 3};
+	public static int lowerLimit = 4;
+	public static int upperLimit = 5;
 }

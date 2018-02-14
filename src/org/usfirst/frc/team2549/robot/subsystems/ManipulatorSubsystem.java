@@ -1,6 +1,7 @@
 package org.usfirst.frc.team2549.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Servo;
@@ -17,6 +18,7 @@ public class ManipulatorSubsystem extends Subsystem {
     // here. Call these from Commands.
 
 	private Talon motors;
+	private DigitalInput boxIn;
 	private Servo servo;
 	private double servoDownPos, servoUpPos;
 
@@ -50,6 +52,12 @@ public class ManipulatorSubsystem extends Subsystem {
     
     public double getServo() {
     	return servo.getPosition();
+    }
+    
+    public boolean cubeIn() {
+    	if(boxIn.get())
+    		return true;
+    	else return false;
     }
 }
 
