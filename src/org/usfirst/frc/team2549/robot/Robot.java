@@ -196,5 +196,6 @@ public class Robot extends IterativeRobot {
     	//SmartDashboard.putBoolean("This means", lift.getHal());
     	//SmartDashboard.putBoolean("limit", limit.get());
     	SmartDashboard.putBoolean("sensing_cube", table.getBoolean("sensing_cube", false));
+    	//SmartDashboard.putNumber("sonaric", drivetrain.getSonar().getRaw());//drivetrain.getSonar().getRaw());
 	}
 }

@@ -7,9 +7,12 @@ import com.analog.adis16448.frc.ADIS16448_IMU;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
+import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.hal.PWMJNI;
 
 /**
  *
@@ -24,6 +27,7 @@ public class DrivetrainSubsystem extends Subsystem {
 	private Talon rightMotor;
 	private Encoder leftEnc;
 	private Encoder rightEnc;
+	private PWM rightSonar;
 	private ADIS16448_IMU imu;
 	
 	private double halfSpeed;
@@ -39,6 +43,8 @@ public class DrivetrainSubsystem extends Subsystem {
 		
 		leftEnc = new Encoder(RobotMap.leftDriveEnc[0], RobotMap.leftDriveEnc[1]);
 		rightEnc = new Encoder(RobotMap.rightDriveEnc[0], RobotMap.rightDriveEnc[1]);
+		
+		//rightSonar = new PWM();
 	
 		imu = new ADIS16448_IMU();
 		
@@ -84,7 +90,11 @@ public class DrivetrainSubsystem extends Subsystem {
     }
     
     public ADIS16448_IMU getIMU() {
-    	return this.imu;
+    	return imu;
+    }
+    
+    public int getSonar() {
+    	return 0;
     }
 }
 

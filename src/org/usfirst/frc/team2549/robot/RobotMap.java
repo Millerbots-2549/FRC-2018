@@ -26,4 +26,5 @@ public class RobotMap {
 	public static int[] leftDriveEnc = {2, 3};
 	public static int lowerLimit = 4;
 	public static int upperLimit = 5;
+	public static int rightSonar = 0;
 }
