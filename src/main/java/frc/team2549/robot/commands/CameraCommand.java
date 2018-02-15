@@ -1,15 +1,17 @@
-package org.usfirst.frc.team2549.robot.commands.auto;
+package frc.team2549.robot.commands;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ManipulatorOut extends Command {
+public class CameraCommand extends Command {
 
-    public ManipulatorOut() {
+    public CameraCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+        super(CameraCommand.class.getSimpleName());
     }
 
     // Called just before this Command runs the first time
@@ -18,6 +20,7 @@ public class ManipulatorOut extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+        CameraServer.getInstance().startAutomaticCapture();
     }
 
     // Make this return true when this Command no longer needs to run execute()

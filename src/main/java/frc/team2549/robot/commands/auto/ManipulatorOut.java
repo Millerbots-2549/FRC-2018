@@ -1,40 +1,23 @@
-package org.usfirst.frc.team2549.robot.commands;
-
-import org.usfirst.frc.team2549.robot.Robot;
+package frc.team2549.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class DriveCommand extends Command {
+public class ManipulatorOut extends Command {
 
-    public DriveCommand() {
+    public ManipulatorOut() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.drivetrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     }
-    
-    protected void executeJoysticks() {
-    	Robot.drivetrain.driveTank(Robot.oi.joyL.getRawAxis(Robot.oi.joyDriveAxis),
-				Robot.oi.joyR.getRawAxis(Robot.oi.joyDriveAxis));
-    }
-    
-    protected void executeController() {
-    	Robot.drivetrain.driveTank(Robot.oi.ctrl.getRawAxis(Robot.oi.ctrlDriveL),
-				Robot.oi.ctrl.getRawAxis(Robot.oi.ctrlDriveR));
-    }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(Robot.ctrlType == Robot.ctrlTypes.kJoysticks)
-    		executeJoysticks();
-    	else if(Robot.ctrlType == Robot.ctrlTypes.kController)
-    		executeController();
     }
 
     // Make this return true when this Command no longer needs to run execute()
