@@ -6,7 +6,7 @@ import frc.team2549.robot.Robot;
 /**
  *
  */
-public class DriveCommand extends MyCommand {
+public class DriveCommand extends Command {
 
     public DriveCommand() {
         super(DriveCommand.class.getSimpleName());
@@ -17,14 +17,8 @@ public class DriveCommand extends MyCommand {
     protected void initialize() {
     }
 
-    protected void executeJoysticks() {
-        Robot.drivetrain.driveTank(Robot.oi.joyL.getRawAxis(Robot.oi.joyDriveAxis),
-                Robot.oi.joyR.getRawAxis(Robot.oi.joyDriveAxis));
-    }
-
-    protected void executeController() {
-        Robot.drivetrain.driveTank(Robot.oi.ctrl.getRawAxis(Robot.oi.ctrlDriveL),
-                Robot.oi.ctrl.getRawAxis(Robot.oi.ctrlDriveR));
+    protected void execute() {
+    	Robot.drivetrain.driveTank(Robot.oi.getDriveL(), Robot.oi.getDriveR());
     }
 
     // Make this return true when this Command no longer needs to run execute()

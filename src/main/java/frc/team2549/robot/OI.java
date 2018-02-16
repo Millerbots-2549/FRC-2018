@@ -12,50 +12,112 @@ public class OI {
     ///////////////////////////////////////////////////////////////////////////
     // Joy Sticks
     ///////////////////////////////////////////////////////////////////////////
-    public int portJoyL = 0;
-    public int portJoyR = 1;
+    private int portJoyL = 0;
+    private int portJoyR = 1;
 
-    public Joystick joyL = new Joystick(portJoyL);
-    public Joystick joyR = new Joystick(portJoyR);
+    private Joystick joyL = new Joystick(portJoyL);
+    private Joystick joyR = new Joystick(portJoyR);
 
     // Axes
-    public int joyDriveAxis = 1;
+    private int joyDriveAxis = 1;
 
     // Buttons
-    public int joyLiftUpN = 3;
-    public int joyLiftDownN = 2;
-    public int joyManipulatorInN = 1;
-    public int joyManipulatorOutN = 1;
+    private int joyLiftFloorN = 2;
+    private int joyLiftSwitchN = 5;
+    private int joyLiftScaleN = 3;
+    private int joyLiftUpN = 3;
+    private int joyLiftDownN = 2;
+    private int joyManipulatorInN = 1;
+    private int joyManipulatorOutN = 1;
 
-    public Button joyLiftUp = new JoystickButton(joyR, joyLiftUpN);
-    public Button joyLiftDown = new JoystickButton(joyR, joyLiftDownN);
-    public Button joyManipulatorIn = new JoystickButton(joyL, joyManipulatorInN);
-    public Button joyManipulatorOut = new JoystickButton(joyR, joyManipulatorOutN);
+    private Button joyLiftFloor = new JoystickButton(joyL, joyLiftFloorN);
+    private Button joyLiftSwitch = new JoystickButton(joyL, joyLiftSwitchN);
+    private Button joyLiftScale = new JoystickButton(joyL, joyLiftScaleN);
+    private Button joyLiftUp = new JoystickButton(joyR, joyLiftUpN);
+    private Button joyLiftDown = new JoystickButton(joyR, joyLiftDownN);
+    private Button joyManipulatorIn = new JoystickButton(joyL, joyManipulatorInN);
+    private Button joyManipulatorOut = new JoystickButton(joyR, joyManipulatorOutN);
 
     ///////////////////////////////////////////////////////////////////////////
     // CONTROLLER
     ///////////////////////////////////////////////////////////////////////////
-    public int portCtrl = 2;
-    public Joystick ctrl = new Joystick(portCtrl);
+    private int portCtrl = 2;
+    private Joystick ctrl = new Joystick(portCtrl);
 
     // Axes
-    public int ctrlDriveL = 5;
-    public int ctrlDriveR = 1;
-    public int ctrlBoxIn = 2;
-    public int ctrlBoxOut = 3;
+    private int ctrlDriveL = 5;
+    private int ctrlDriveR = 1;
+    private int ctrlBoxIn = 2;
+    private int ctrlBoxOut = 3;
 
     // Buttons
-    public int ctrlLiftUp = 0;
-    public int ctrlLiftDown = 180;
+    private int ctrlLiftFloor = 180;
+    private int ctrlLiftSwitch = 90;
+    private int ctrlLiftScale = 0;
+    private int ctrlLiftUp = 0;
+    private int ctrlLiftDown = 180;
 
     private int ctrlServoUpN = 4;
-    public Button ctrlServoUp = new JoystickButton(ctrl, ctrlServoUpN);
+    private Button ctrlServoUp = new JoystickButton(ctrl, ctrlServoUpN);
     private int ctrlServoDownN = 2;
-    public Button ctrlServoDown = new JoystickButton(ctrl, ctrlServoDownN);
+    private Button ctrlServoDown = new JoystickButton(ctrl, ctrlServoDownN);
     private int ctrlManipulatorInN = 5; // FIND OUT
-    public Button ctrlManipulatorIn = new JoystickButton(ctrl, ctrlManipulatorInN);
+    private Button ctrlManipulatorIn = new JoystickButton(ctrl, ctrlManipulatorInN);
     private int ctrlManipulatorOutN = 6; // FIND OUT
-    public Button ctrlManipulatorOut = new JoystickButton(ctrl, ctrlManipulatorOutN);
+    private Button ctrlManipulatorOut = new JoystickButton(ctrl, ctrlManipulatorOutN);
+    
+    ///////////////////////////////////////////////////////////////////////////
+    // GETTERS
+    ///////////////////////////////////////////////////////////////////////////
+    
+    public enum ControllerType {controller, joystick}
+    private ControllerType ctrlType = ControllerType.joystick;
+    
+    public void setCtrlType(ControllerType ctrlType) {
+    	this.ctrlType = ctrlType;
+    }
+    
+    public double getDriveL() {
+    	if(ctrlType == ControllerType.joystick) return joyL.getRawAxis(joyDriveAxis);
+    	else if(ctrlType == ControllerType.controller) return ctrl.getRawAxis(ctrlDriveL);
+    	return 0;
+    }
+    
+    public double getDriveR() {
+    	if(ctrlType == ControllerType.joystick) return joyR.getRawAxis(joyDriveAxis);
+    	else if(ctrlType == ControllerType.controller) return ctrl.getRawAxis(ctrlDriveR);
+    	return 0;
+    }
+    
+    public boolean getManipulatorIn() {
+    	if(ctrlType == ControllerType.joystick) return joyManipulatorIn.get();
+    	else if(ctrlType == ControllerType.controller) return ctrlManipulatorIn.get();
+    	return false;
+    }
+    
+    public boolean getManipulatorOut() {
+    	if(ctrlType == ControllerType.joystick) return joyManipulatorOut.get();
+    	else if(ctrlType == ControllerType.controller) return ctrlManipulatorOut.get();
+    	return false;
+    }
+    
+    public boolean getLiftFloor() {
+    	if(ctrlType == ControllerType.joystick) return joyLiftFloor.get();
+    	else if(ctrlType == ControllerType.controller) return ctrl.getPOV() == ctrlLiftFloor;
+    	return false;
+    }
+    
+    public boolean getLiftSwitch() {
+    	if(ctrlType == ControllerType.joystick) return joyLiftSwitch.get();
+    	else if(ctrlType == ControllerType.controller) return ctrl.getPOV() == ctrlLiftSwitch;
+    	return false;
+    }
+    
+    public boolean getLiftScale() {
+    	if(ctrlType == ControllerType.joystick) return joyLiftScale.get();
+    	else if(ctrlType == ControllerType.controller) return ctrl.getPOV() == ctrlLiftScale;
+    	return false;
+    }
 
     //// CREATING BUTTONS
     // One type of button is a joystick button which is any button on a

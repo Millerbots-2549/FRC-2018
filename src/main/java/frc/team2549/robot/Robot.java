@@ -25,14 +25,14 @@ public class Robot extends IterativeRobot {
     public static final LiftSubsystem lift = new LiftSubsystem();
 
     private static final SendableChooser<Command> autoChooser = new SendableChooser<>();
-    private static final SendableChooser<ControllerType> ctrlChooser = new SendableChooser<>();
+    private static final SendableChooser<OI.ControllerType> ctrlChooser = new SendableChooser<>();
     private static final SendableChooser<SpeedType> speedChooser = new SendableChooser<>();
 
     public static OI oi;
     public NetworkTable table;
     Command autonomousCommand;
 
-    public static ControllerType getControllerType() {
+    public static OI.ControllerType getControllerType() {
         return ctrlChooser.getSelected();
     }
 
@@ -48,8 +48,8 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
         oi = new OI();
 
-        ctrlChooser.addDefault("Joysticks", ControllerType.joystick);
-        ctrlChooser.addObject("Controller", ControllerType.controller);
+        ctrlChooser.addDefault("Joysticks", OI.ControllerType.joystick);
+        ctrlChooser.addObject("Controller", OI.ControllerType.controller);
 
         speedChooser.addDefault("Full Speed", SpeedType.full);
         speedChooser.addObject("Half Speed", SpeedType.half);
@@ -167,6 +167,7 @@ public class Robot extends IterativeRobot {
 
         // Lift
         //SmartDashboard.putNumber("Lift Motor", lift.getMotor());
+        SmartDashboard.putNumber("Lift Position", lift.getPosition());
         //SmartDashboard.putNumber("Hal says:", lift.hal.getAverageVoltage());
         //SmartDashboard.putNumber("Hal sayss:", lift.hal.getVoltage());
         //SmartDashboard.putNumber("Hal saysss:", lift.hal.getValue());
@@ -175,9 +176,6 @@ public class Robot extends IterativeRobot {
         //SmartDashboard.putBoolean("sensing_cube", table.getBoolean("sensing_cube", false));
         //SmartDashboard.putNumber("sonaric", drivetrain.getSonar().getRaw());//drivetrain.getSonar().getRaw());
     }
-
-
-    public enum ControllerType {controller, joystick}
 
     public enum SpeedType {full, half}
 }

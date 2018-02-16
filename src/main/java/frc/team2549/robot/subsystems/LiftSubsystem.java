@@ -1,10 +1,12 @@
 package frc.team2549.robot.subsystems;
 
+import frc.team2549.robot.RobotMap;
+import frc.team2549.robot.commands.LiftCommand;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import frc.team2549.robot.RobotMap;
-import frc.team2549.robot.commands.LiftCommand;
+import edu.wpi.first.wpilibj.Counter;
 
 /**
  *
@@ -14,19 +16,21 @@ public class LiftSubsystem extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    private static final double SPEED = 1.0;
-
-    public DigitalInput upperLimit;
-    public DigitalInput lowerLimit;
+    private DigitalInput limitFloor;
+    private DigitalInput limitSwitch;
+    private DigitalInput limitScale;
     private Talon motor;
-    //public AnalogInput hal;
+    private double speed;
+    private int position;
 
     public LiftSubsystem() {
         super(LiftSubsystem.class.getSimpleName());
         motor = new Talon(RobotMap.liftMotor);
-        lowerLimit = new DigitalInput(4);
-        upperLimit = new DigitalInput(5);
-        //hal = new AnalogInput(0);
+        limitFloor = new DigitalInput(7);
+        limitSwitch = new DigitalInput(8);
+        limitScale = new DigitalInput(9);
+                
+        position = 0;
     }
 
     public void initDefaultCommand() {
@@ -34,16 +38,31 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void raiseLift() {
-        motor.set(SPEED);
+        motor.set(speed);
     }
 
     public void lowerLift() {
-        motor.set(-0.5);
+        motor.set(-speed/2);
     }
 
     public void stopLift() {
         motor.set(0.0);
     }
-
+    
+    public int getPosition() {
+    	return position;
+    }
+    
+    public boolean isAtFloor() {
+    	return limitFloor.get();
+    }
+    
+    public boolean isAtSwitch() {
+    	return limitSwitch.get();
+    }
+    
+    public boolean isAtScale() {
+    	return limitScale.get();
+    }
 }
 

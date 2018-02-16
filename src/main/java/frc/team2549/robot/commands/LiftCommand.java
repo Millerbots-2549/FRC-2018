@@ -1,11 +1,16 @@
 package frc.team2549.robot.commands;
 
+import edu.wpi.first.wpilibj.command.Command;
+
 import frc.team2549.robot.Robot;
+import frc.team2549.robot.commands.auto.LiftToFloor;
+import frc.team2549.robot.commands.auto.LiftToSwitch;
+import frc.team2549.robot.commands.auto.LiftToScale;
 
 /**
  *
  */
-public class LiftCommand extends MyCommand {
+public class LiftCommand extends Command {
 
     public LiftCommand() {
         super(LiftCommand.class.getSimpleName());
@@ -16,22 +21,18 @@ public class LiftCommand extends MyCommand {
     protected void initialize() {
     }
 
-    protected void executeJoysticks() {
-
-        if (Robot.oi.joyLiftUp.get() && Robot.lift.upperLimit.get())
-            Robot.lift.raiseLift();
-        else if (Robot.oi.joyLiftDown.get() && Robot.lift.lowerLimit.get())
-            Robot.lift.lowerLift();
-        else
-            Robot.lift.stopLift();
-    }
-
-    protected void executeController() {
+    protected void execute() {
 //    	if(Robot.oi.ctrl.getPOV() == Robot.oi.ctrlLiftUp)
 //    		Robot.lift.raiseLift();
 //    	else if(Robot.oi.ctrl.getPOV() == Robot.oi.ctrlLiftDown)
 //    		Robot.lift.lowerLift();
 //    	else Robot.lift.stopLift();
+    	if(Robot.oi.getLiftFloor())
+    		new LiftToFloor();
+    	else if(Robot.oi.getLiftSwitch())
+    		new LiftToSwitch();
+    	else if(Robot.oi.getLiftScale())
+    		new LiftToScale();
     }
 
     // Make this return true when this Command no longer needs to run execute()

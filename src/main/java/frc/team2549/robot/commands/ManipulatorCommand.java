@@ -7,11 +7,7 @@ import frc.team2549.robot.Robot;
 /**
  *
  */
-public class ManipulatorCommand extends MyCommand {
-
-    NetworkTable table;
-//    int cube_pos_x, cube_pos_y;
-//    boolean cube_sensing;
+public class ManipulatorCommand extends Command {
 
     public ManipulatorCommand() {
         super(ManipulatorCommand.class.getSimpleName());
@@ -20,27 +16,14 @@ public class ManipulatorCommand extends MyCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        Robot.manipulator.servoRelease(false);
-
-        // TODO why are we doing this?
-        table = NetworkTable.getTable("SmartDashboard");
     }
 
-    protected void executeJoysticks() {
-        if (Robot.oi.joyManipulatorIn.get())
-            Robot.manipulator.takeIn();
-        else if (Robot.oi.joyManipulatorOut.get())
-            Robot.manipulator.pushOut();
+    protected void execute() {
 
-        //Robot.oi.ctrlManipulatorIn.whenPressed(new ManipulatorIn());
-    }
-
-    protected void executeController() {
-
-        if (Robot.oi.ctrlManipulatorIn.get())
-            Robot.manipulator.takeIn();
-        else if (Robot.oi.ctrlManipulatorOut.get())
-            Robot.manipulator.pushOut();
+//        if (Robot.oi.ctrlManipulatorIn.get())
+//            Robot.manipulator.takeIn();
+//        else if (Robot.oi.ctrlManipulatorOut.get())
+//            Robot.manipulator.pushOut();
 
         // TODO this release
         // Release Servo
