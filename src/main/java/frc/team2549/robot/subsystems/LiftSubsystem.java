@@ -25,16 +25,21 @@ public class LiftSubsystem extends Subsystem {
 
     public LiftSubsystem() {
         super(LiftSubsystem.class.getSimpleName());
-        motor = new Talon(RobotMap.liftMotor);
-        limitFloor = new DigitalInput(7);
-        limitSwitch = new DigitalInput(8);
-        limitScale = new DigitalInput(9);
-                
+        motor = new Talon(3);
+        limitFloor = new DigitalInput(RobotMap.limitFloor);
+        limitSwitch = new DigitalInput(RobotMap.limitSwitch);
+        limitScale = new DigitalInput(RobotMap.limitScale);
+
         position = 0;
+        speed = 1;
     }
 
     public void initDefaultCommand() {
         setDefaultCommand(new LiftCommand());
+    }
+    
+    public double getMotor() {
+    	return motor.get();
     }
 
     public void raiseLift() {
@@ -48,21 +53,42 @@ public class LiftSubsystem extends Subsystem {
     public void stopLift() {
         motor.set(0.0);
     }
-    
+
     public int getPosition() {
     	return position;
     }
-    
+
     public boolean isAtFloor() {
-    	return limitFloor.get();
+    	return !limitFloor.get();
     }
-    
+
     public boolean isAtSwitch() {
-    	return limitSwitch.get();
+    	return !limitSwitch.get();
     }
-    
+
     public boolean isAtScale() {
-    	return limitScale.get();
+    	return !limitScale.get();
+    }
+
+    public void moveToFloor() {
+    	if(!isAtFloor())
+    		lowerLift();
+    	else stopLift();
+    }
+
+    public void moveToSwitch() {
+    	if(!isAtSwitch())
+	    	if(!isAtScale())
+	    		lowerLift();
+	    	else if(!isAtFloor())
+	    		raiseLift();
+	    else stopLift();
+    }
+
+    public void moveToScale() {
+    	if(!isAtScale())
+    		raiseLift();
+    	else stopLift();
     }
 }
 

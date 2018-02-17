@@ -7,9 +7,17 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import frc.team2549.robot.subsystems.DrivetrainSubsystem;
 import frc.team2549.robot.subsystems.LiftSubsystem;
 import frc.team2549.robot.subsystems.ManipulatorSubsystem;
+import frc.team2549.robot.subsystems.CameraSubsystem;
+import frc.team2549.robot.commands.auto.AutoRightScale;
+import frc.team2549.robot.commands.auto.AutoRightSwitch;
+import frc.team2549.robot.commands.auto.AutoMidLeftSwitch;
+import frc.team2549.robot.commands.auto.AutoMidRightSwitch;
+import frc.team2549.robot.commands.auto.AutoLeftScale;
+import frc.team2549.robot.commands.auto.AutoLeftSwitch;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -23,13 +31,15 @@ public class Robot extends IterativeRobot {
     public static final DrivetrainSubsystem drivetrain = new DrivetrainSubsystem();
     public static final ManipulatorSubsystem manipulator = new ManipulatorSubsystem();
     public static final LiftSubsystem lift = new LiftSubsystem();
+    public static final CameraSubsystem vision = new CameraSubsystem();
 
     private static final SendableChooser<Command> autoChooser = new SendableChooser<>();
     private static final SendableChooser<OI.ControllerType> ctrlChooser = new SendableChooser<>();
     private static final SendableChooser<SpeedType> speedChooser = new SendableChooser<>();
 
     public static OI oi;
-    public NetworkTable table;
+    public static NetworkTableInstance tableInst;
+    public static NetworkTable table;
     Command autonomousCommand;
 
     public static OI.ControllerType getControllerType() {
@@ -47,6 +57,16 @@ public class Robot extends IterativeRobot {
     @Override
     public void robotInit() {
         oi = new OI();
+
+        tableInst = NetworkTableInstance.getDefault();
+        table = tableInst.getTable("SmartDashboard");
+
+        autoChooser.addDefault("Left Scale", new AutoLeftScale());
+        autoChooser.addObject("Left Switch", new AutoLeftSwitch());
+        autoChooser.addObject("MidLeft Switch", new AutoMidLeftSwitch());
+        autoChooser.addObject("MidRight Switch", new AutoMidRightSwitch());
+        autoChooser.addObject("Right Scale", new AutoRightScale());
+        autoChooser.addObject("Right Switch", new AutoRightSwitch());
 
         ctrlChooser.addDefault("Joysticks", OI.ControllerType.joystick);
         ctrlChooser.addObject("Controller", OI.ControllerType.controller);
@@ -154,6 +174,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Right Motors", drivetrain.getMotor(1));
         SmartDashboard.putNumber("Left Encoder", drivetrain.getEncoder(0));
         SmartDashboard.putNumber("Right Encoder", drivetrain.getEncoder(1));
+        SmartDashboard.putNumber("sonar", drivetrain.getSonar());
 
         SmartDashboard.putNumber("IMU Temp", drivetrain.getIMU().getTemperature());
         SmartDashboard.putNumber("IMU Pres", drivetrain.getIMU().getBarometricPressure());
@@ -162,12 +183,16 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("IMU MagZ", drivetrain.getIMU().getMagZ());
 
         // Manipulator
-        //SmartDashboard.putNumber("Manip Motors", manipulator.getMotors());
+        SmartDashboard.putNumber("Manip Motors", manipulator.getMotors());
         SmartDashboard.putNumber("Servo Release", manipulator.getServo());
+        SmartDashboard.putBoolean("Cube In", manipulator.cubeIn());
 
         // Lift
-        //SmartDashboard.putNumber("Lift Motor", lift.getMotor());
+        SmartDashboard.putNumber("Lift Motor", lift.getMotor());
         SmartDashboard.putNumber("Lift Position", lift.getPosition());
+        SmartDashboard.putBoolean("Limit Floor", lift.isAtFloor());
+        SmartDashboard.putBoolean("Limit Switch", lift.isAtSwitch());
+        SmartDashboard.putBoolean("Limit Scale", lift.isAtScale());
         //SmartDashboard.putNumber("Hal says:", lift.hal.getAverageVoltage());
         //SmartDashboard.putNumber("Hal sayss:", lift.hal.getVoltage());
         //SmartDashboard.putNumber("Hal saysss:", lift.hal.getValue());

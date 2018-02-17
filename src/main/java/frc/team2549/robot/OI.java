@@ -25,10 +25,12 @@ public class OI {
     private int joyLiftFloorN = 2;
     private int joyLiftSwitchN = 5;
     private int joyLiftScaleN = 3;
-    private int joyLiftUpN = 3;
-    private int joyLiftDownN = 2;
+    private int joyLiftUpN = 6;
+    private int joyLiftDownN = 7;
     private int joyManipulatorInN = 1;
     private int joyManipulatorOutN = 1;
+    private int joyServoDownN = 4;
+    private int joyServoUpN = 5;
 
     private Button joyLiftFloor = new JoystickButton(joyL, joyLiftFloorN);
     private Button joyLiftSwitch = new JoystickButton(joyL, joyLiftSwitchN);
@@ -37,6 +39,8 @@ public class OI {
     private Button joyLiftDown = new JoystickButton(joyR, joyLiftDownN);
     private Button joyManipulatorIn = new JoystickButton(joyL, joyManipulatorInN);
     private Button joyManipulatorOut = new JoystickButton(joyR, joyManipulatorOutN);
+    private Button joyServoDown = new JoystickButton(joyR, joyServoDownN);
+    private Button joyServoUp = new JoystickButton(joyR, joyServoUpN);
 
     ///////////////////////////////////////////////////////////////////////////
     // CONTROLLER
@@ -101,6 +105,16 @@ public class OI {
     	return false;
     }
     
+    public boolean getLiftDown() {
+    	if(ctrlType == ControllerType.joystick) return joyLiftDown.get();
+    	return false;
+    }
+    
+    public boolean getLiftUp() {
+    	if(ctrlType == ControllerType.joystick) return joyLiftUp.get();
+    	return false;
+    }
+    
     public boolean getLiftFloor() {
     	if(ctrlType == ControllerType.joystick) return joyLiftFloor.get();
     	else if(ctrlType == ControllerType.controller) return ctrl.getPOV() == ctrlLiftFloor;
@@ -116,6 +130,18 @@ public class OI {
     public boolean getLiftScale() {
     	if(ctrlType == ControllerType.joystick) return joyLiftScale.get();
     	else if(ctrlType == ControllerType.controller) return ctrl.getPOV() == ctrlLiftScale;
+    	return false;
+    }
+    
+    public boolean getServoDown() {
+    	if(ctrlType == ControllerType.joystick) return joyServoDown.get();
+    	else if(ctrlType == ControllerType.controller) return ctrlServoDown.get();
+    	return false;
+    }
+    
+    public boolean getServoUp() {
+    	if(ctrlType == ControllerType.joystick) return joyServoUp.get();
+    	else if(ctrlType == ControllerType.controller) return ctrlServoUp.get();
     	return false;
     }
 

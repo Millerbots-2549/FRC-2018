@@ -27,12 +27,23 @@ public class LiftCommand extends Command {
 //    	else if(Robot.oi.ctrl.getPOV() == Robot.oi.ctrlLiftDown)
 //    		Robot.lift.lowerLift();
 //    	else Robot.lift.stopLift();
-    	if(Robot.oi.getLiftFloor())
-    		new LiftToFloor();
-    	else if(Robot.oi.getLiftSwitch())
-    		new LiftToSwitch();
-    	else if(Robot.oi.getLiftScale())
-    		new LiftToScale();
+    	if(Robot.oi.getLiftFloor()) {
+    		System.out.println("floor");
+    		Robot.lift.moveToFloor();
+    	}
+    	else if(Robot.oi.getLiftSwitch()) {
+    		System.out.println("switch");
+    		Robot.lift.moveToSwitch();
+    	}
+    	else if(Robot.oi.getLiftScale()) {
+    		System.out.println("scale");
+    		Robot.lift.moveToScale();
+    	}
+    	
+    	if(Robot.oi.getLiftDown())
+    		Robot.lift.lowerLift();
+    	else if(Robot.oi.getLiftUp())
+    		Robot.lift.raiseLift();
     }
 
     // Make this return true when this Command no longer needs to run execute()

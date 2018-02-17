@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj.SafePWM;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.AnalogInput;
+
 import frc.team2549.robot.RobotMap;
 import frc.team2549.robot.commands.DriveCommand;
 
@@ -22,7 +24,8 @@ public class DrivetrainSubsystem extends Subsystem {
     private Talon rightMotor;
     private Encoder leftEnc;
     private Encoder rightEnc;
-    private SafePWM rightSonar;
+    //private SafePWM rightSonar;
+    private AnalogInput sonar;
     private ADIS16448_IMU imu;
 
     private double halfSpeed;
@@ -40,7 +43,8 @@ public class DrivetrainSubsystem extends Subsystem {
         leftEnc = new Encoder(RobotMap.leftDriveEnc[0], RobotMap.leftDriveEnc[1]);
         rightEnc = new Encoder(RobotMap.rightDriveEnc[0], RobotMap.rightDriveEnc[1]);
 
-        rightSonar = new SafePWM(9);
+        //rightSonar = new SafePWM(9);
+        sonar = new AnalogInput(0);
 
         imu = new ADIS16448_IMU();
 
@@ -90,7 +94,7 @@ public class DrivetrainSubsystem extends Subsystem {
     }
 
     public int getSonar() {
-        return 0;
+        return sonar.getValue();
     }
 }
 

@@ -11,11 +11,10 @@ import frc.team2549.robot.commands.ManipulatorCommand;
  *
  */
 public class ManipulatorSubsystem extends Subsystem {
-
-    private static final double SPEED = 1.0;
-
+	
     private Talon motor;
     private DigitalInput boxIn;
+    private double speed;
 
     //TODO this servo should be a separate subsystem with its own commands for controlling it
     private Servo servo;
@@ -23,14 +22,20 @@ public class ManipulatorSubsystem extends Subsystem {
 
     public ManipulatorSubsystem() {
         super(ManipulatorSubsystem.class.getSimpleName());
-        motor = new Talon(RobotMap.manipulatorMotors);
+        motor = new Talon(2);
         servo = new Servo(RobotMap.releaseServo);
-        servoDownPos = 1;
-        servoUpPos = 0; // change these
+        boxIn = new DigitalInput(RobotMap.boxIn);
+        servoDownPos = 0;
+        servoUpPos = .5; // change these
+        speed = 1;
     }
 
     public void initDefaultCommand() {
         setDefaultCommand(new ManipulatorCommand());
+    }
+    
+    public void setSpeed(double speed) {
+    	this.speed = speed;
     }
 
     public void servoRelease(boolean set) {
@@ -41,21 +46,34 @@ public class ManipulatorSubsystem extends Subsystem {
     }
 
     public void takeIn() {
-        motor.set(SPEED);
+    	if(!cubeIn())
+    		motor.set(-speed);
     }
 
     public void pushOut() {
-        motor.set(-SPEED);
+        motor.set(speed);
+    }
+    
+    public void stop() {
+    	motor.set(0);
+    }
+    
+    public double getMotors() {
+    	return motor.get();
     }
 
     public double getServo() {
         return servo.getPosition();
     }
 
+    public boolean getServoReleased() {
+    	if(servo.getPosition() == servoDownPos)
+    		return true;
+    	else return false;
+    }
+
     public boolean cubeIn() {
-        if (boxIn.get())
-            return true;
-        else return false;
+        return !boxIn.get();
     }
 }
 
