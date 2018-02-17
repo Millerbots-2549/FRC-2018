@@ -22,11 +22,11 @@ public class ManipulatorSubsystem extends Subsystem {
 
     public ManipulatorSubsystem() {
         super(ManipulatorSubsystem.class.getSimpleName());
-        motor = new Talon(2);
+        motor = new Talon(RobotMap.manipulatorMotors);
         servo = new Servo(RobotMap.releaseServo);
         boxIn = new DigitalInput(RobotMap.boxIn);
         servoDownPos = 0;
-        servoUpPos = .5; // change these
+        servoUpPos = .75; // change these
         speed = 1;
     }
 

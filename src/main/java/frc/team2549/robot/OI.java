@@ -25,8 +25,8 @@ public class OI {
     private int joyLiftFloorN = 2;
     private int joyLiftSwitchN = 5;
     private int joyLiftScaleN = 3;
-    private int joyLiftUpN = 6;
-    private int joyLiftDownN = 7;
+    private int joyLiftUpN = 3;
+    private int joyLiftDownN = 2;
     private int joyManipulatorInN = 1;
     private int joyManipulatorOutN = 1;
     private int joyServoDownN = 4;

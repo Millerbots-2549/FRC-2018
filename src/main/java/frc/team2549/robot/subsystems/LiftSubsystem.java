@@ -25,7 +25,7 @@ public class LiftSubsystem extends Subsystem {
 
     public LiftSubsystem() {
         super(LiftSubsystem.class.getSimpleName());
-        motor = new Talon(3);
+        motor = new Talon(RobotMap.liftMotor);
         limitFloor = new DigitalInput(RobotMap.limitFloor);
         limitSwitch = new DigitalInput(RobotMap.limitSwitch);
         limitScale = new DigitalInput(RobotMap.limitScale);
@@ -43,11 +43,15 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void raiseLift() {
-        motor.set(speed);
+    	if(isAtScale())
+    		stopLift();
+    	else motor.set(speed);
     }
 
     public void lowerLift() {
-        motor.set(-speed/2);
+    	if(isAtFloor())
+    		stopLift();
+    	else motor.set(-speed/2);
     }
 
     public void stopLift() {
@@ -71,12 +75,14 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void moveToFloor() {
+    	System.out.println("In move to floor");
     	if(!isAtFloor())
     		lowerLift();
     	else stopLift();
     }
 
     public void moveToSwitch() {
+    	System.out.println("In move to switch");
     	if(!isAtSwitch())
 	    	if(!isAtScale())
 	    		lowerLift();
@@ -86,9 +92,14 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void moveToScale() {
-    	if(!isAtScale())
+    	System.out.println("In move to scale");
+    	if(!isAtScale()) {
+        	System.out.println("RAISING In move to scale");
     		raiseLift();
-    	else stopLift();
+    	}
+    	else {
+        	System.out.println("STOPPING In move to scale");
+    		stopLift();
+    	}
     }
 }
-
