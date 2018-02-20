@@ -174,6 +174,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Right Motors", drivetrain.getMotor(1));
         SmartDashboard.putNumber("Left Encoder", drivetrain.getEncoder(0));
         SmartDashboard.putNumber("Right Encoder", drivetrain.getEncoder(1));
+        SmartDashboard.putNumber("Encoder Average", drivetrain.getEncoderAvg());
         SmartDashboard.putNumber("sonar", drivetrain.getSonar());
 
         SmartDashboard.putNumber("IMU Temp", drivetrain.getIMU().getTemperature());

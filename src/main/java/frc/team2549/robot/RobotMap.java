@@ -24,8 +24,8 @@ public class RobotMap {
     public static int liftMotor = 3;
     public static int releaseServo = 4;
     // DIO
-    public static int[] rightDriveEnc = {0, 1};
-    public static int[] leftDriveEnc = {2, 3};
+    public static int[] leftDriveEnc = {0, 1};
+    public static int[] rightDriveEnc = {2, 3};
     public static int limitFloor = 4;
     public static int limitSwitch = 5;
     public static int limitScale = 6;

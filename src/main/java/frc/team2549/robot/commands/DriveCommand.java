@@ -11,6 +11,7 @@ public class DriveCommand extends Command {
     public DriveCommand() {
         super(DriveCommand.class.getSimpleName());
         requires(Robot.drivetrain);
+        requires(Robot.lift);
     }
 
     // Called just before this Command runs the first time
@@ -19,6 +20,12 @@ public class DriveCommand extends Command {
 
     protected void execute() {
     	Robot.drivetrain.driveTank(Robot.oi.getDriveL(), Robot.oi.getDriveR());
+    	
+    	if(Robot.lift.getPosition() == 1)
+    		Robot.drivetrain.setSpeed(.5);
+    	else if(Robot.lift.getPosition() == 2)
+    		Robot.drivetrain.setSpeed(.3);
+    	else Robot.drivetrain.setSpeed(1);
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -1,12 +1,15 @@
 package frc.team2549.robot.commands.auto;
 
 import frc.team2549.robot.Robot;
+import frc.team2549.robot.commands.auto.DriveDistance;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class AutoLeftScale extends CommandGroup {
 
     public AutoLeftScale() {
+    	addSequential(new DriveDistance(-200, .3));
+    	
     	//addSequential(new DriveDistance(1150, 0, .3));
 
         // Add Commands here:

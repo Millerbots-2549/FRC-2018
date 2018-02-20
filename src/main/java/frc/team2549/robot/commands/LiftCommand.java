@@ -22,31 +22,32 @@ public class LiftCommand extends Command {
     }
 
     protected void execute() {
-//    	if(Robot.oi.ctrl.getPOV() == Robot.oi.ctrlLiftUp)
-//    		Robot.lift.raiseLift();
-//    	else if(Robot.oi.ctrl.getPOV() == Robot.oi.ctrlLiftDown)
-//    		Robot.lift.lowerLift();
-//    	else Robot.lift.stopLift();
-//    	if(Robot.oi.getLiftFloor()) {
-//    		System.out.println("floor");
-//    		Robot.lift.moveToFloor();
-//    	}
-//    	else if(Robot.oi.getLiftSwitch()) {
-//    		System.out.println("switch");
-//    		Robot.lift.moveToSwitch();
-//    	}
-//    	else if(Robot.oi.getLiftScale()) {
-//    		System.out.println("scale");
+    	if(Robot.oi.getLiftFloor()) {
+    		System.out.println("floor");
+    		Robot.lift.moveToFloor();
+//    		Command c = new LiftToFloor();
+//    		c.start();
+    	}
+    	else if(Robot.oi.getLiftSwitch()) {
+    		System.out.println("switch");
+    		Robot.lift.moveToSwitch();
+//    		Command c = new LiftToSwitch();
+//    		c.start();
+    	}
+    	else if(Robot.oi.getLiftScale()) {
+    		System.out.println("scale");
+    		Robot.lift.moveToScale();
 //    		Command c = new LiftToScale();
 //    		c.start();
-//    		//Robot.lift.moveToScale();
-//    	}
-    	
+    	}
+
+    	Robot.lift.updatePosition();
+
     	if(Robot.oi.getLiftDown())
     		Robot.lift.lowerLift();
     	else if(Robot.oi.getLiftUp())
     		Robot.lift.raiseLift();
-    	else Robot.lift.stopLift();
+    	//else Robot.lift.stopLift();
     }
 
     // Make this return true when this Command no longer needs to run execute()

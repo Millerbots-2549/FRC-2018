@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.SafePWM;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 
 import frc.team2549.robot.RobotMap;
@@ -26,6 +27,7 @@ public class DrivetrainSubsystem extends Subsystem {
     private Encoder rightEnc;
     //private SafePWM rightSonar;
     private AnalogInput sonar;
+    private ADXRS450_Gyro gyro;
     private ADIS16448_IMU imu;
 
     private double halfSpeed;
@@ -45,7 +47,7 @@ public class DrivetrainSubsystem extends Subsystem {
 
         //rightSonar = new SafePWM(9);
         sonar = new AnalogInput(0);
-
+        gyro = new ADXRS450_Gyro();
         imu = new ADIS16448_IMU();
 
         halfSpeed = .5;
@@ -87,6 +89,19 @@ public class DrivetrainSubsystem extends Subsystem {
             default:
                 return .0;
         }
+    }
+    
+    public double getEncoderAvg() {
+    	return (getEncoder(0) + getEncoder(1)) / 2;
+    }
+    
+    public void resetEncoders() {
+    	leftEnc.reset();
+    	rightEnc.reset();
+    }
+    
+    public double getAngle() {
+    	return gyro.getAngle();
     }
 
     public ADIS16448_IMU getIMU() {

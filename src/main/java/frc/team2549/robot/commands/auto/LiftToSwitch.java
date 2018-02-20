@@ -18,9 +18,9 @@ public class LiftToSwitch extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(Robot.lift.getPosition() == 0)
+    	if(Robot.lift.isAtFloor())
     		Robot.lift.raiseLift();
-    	else if(Robot.lift.getPosition() == 2)
+    	else if(Robot.lift.isAtScale())
     		Robot.lift.lowerLift();
     }
 
@@ -30,7 +30,7 @@ public class LiftToSwitch extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.lift.isAtFloor();
+        return Robot.lift.isAtSwitch();
     }
 
     // Called once after isFinished returns true

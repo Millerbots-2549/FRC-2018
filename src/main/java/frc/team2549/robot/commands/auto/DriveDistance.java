@@ -6,31 +6,49 @@ import frc.team2549.robot.Robot;
 /**
  *
  */
-public class LiftToScale extends Command {
+public class DriveDistance extends Command {
 
-    public LiftToScale() {
+	int distance;
+	int angle;
+	double speed;
+	
+    public DriveDistance(int distance, double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-        requires(Robot.lift);
+        requires(Robot.drivetrain);
+        this.distance = distance;
+        this.angle = 0;
+        this.speed = speed;
+    }
+
+    public DriveDistance(int distance, int angle, double speed) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+        requires(Robot.drivetrain);
+        this.distance = distance;
+        this.angle = angle;
+        this.speed = speed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.lift.raiseLift();
+    	Robot.drivetrain.resetEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
+    	Robot.drivetrain.driveTank(speed, speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.lift.isAtScale();
+    	return Robot.drivetrain.getEncoder(0) > distance;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.lift.stopLift();
+    	Robot.drivetrain.driveTank(0, 0);
     }
 
     // Called when another command which requires one or more of the same
@@ -39,4 +57,3 @@ public class LiftToScale extends Command {
     }
 }
 //written entirely by Victor LaBrie
-//co-written by Kylo
