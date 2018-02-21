@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoLeftScale extends CommandGroup {
 
     public AutoLeftScale() {
-    	addSequential(new DriveDistance(-200, .3));
+    	addSequential(new DriveDistance(200, .4));
+    	
     	
     	//addSequential(new DriveDistance(1150, 0, .3));
 

@@ -22,7 +22,7 @@ public class DriveCommand extends Command {
     	Robot.drivetrain.driveTank(Robot.oi.getDriveL(), Robot.oi.getDriveR());
     	
     	if(Robot.lift.getPosition() == 1)
-    		Robot.drivetrain.setSpeed(.5);
+    		Robot.drivetrain.setSpeed(.7);
     	else if(Robot.lift.getPosition() == 2)
     		Robot.drivetrain.setSpeed(.3);
     	else Robot.drivetrain.setSpeed(1);

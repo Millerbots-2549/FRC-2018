@@ -31,5 +31,6 @@ public class RobotMap {
     public static int limitScale = 6;
     public static int boxIn = 7;
     // Analog
-    public static int rightSonar = 0;
+    public static int leftSonar = 0;
+    public static int rightSonar = 1;
 }

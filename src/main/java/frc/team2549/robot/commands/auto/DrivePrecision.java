@@ -6,15 +6,18 @@ import frc.team2549.robot.Robot;
 /**
  *
  */
-public class DriveDistance extends Command {
+public class DrivePrecision extends Command {
 
 	private int distance;
 	private double speed;
+	public enum side { kLeft, kRight };
+	private side _side;
 	
-    public DriveDistance(int distance, double speed) {
+    public DrivePrecision(side _side, int distance, double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.drivetrain);
+        this._side = _side;
         this.distance = distance;
         this.speed = -speed;
     }
@@ -26,12 +29,15 @@ public class DriveDistance extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.driveTank(speed, speed);
+    	if(_side == side.kLeft)
+    		Robot.drivetrain.driveTank(speed, 0);
+    	else if(_side == side.kRight)
+    		Robot.drivetrain.driveTank(0, speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return Robot.drivetrain.getEncoderAvg() > distance;
+    	return Robot.drivetrain.getEncoder(_side == side.kLeft ? 0 : 1) > distance;
     }
 
     // Called once after isFinished returns true
