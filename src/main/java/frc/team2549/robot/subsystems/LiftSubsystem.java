@@ -30,28 +30,30 @@ public class LiftSubsystem extends Subsystem {
         limitSwitch = new DigitalInput(RobotMap.limitSwitch);
         limitScale = new DigitalInput(RobotMap.limitScale);
 
-        position = 0;
         speed = 1;
+        position = 0;
     }
 
     public void initDefaultCommand() {
         setDefaultCommand(new LiftCommand());
     }
-    
+
     public double getMotor() {
     	return motor.get();
     }
 
     public void raiseLift() {
-    	if(isAtScale())
-    		stopLift();
-    	else motor.set(speed);
+    	motor.set(speed);
+//    	if(isAtScale())
+//    		stopLift();
+//    	else motor.set(speed);
     }
 
     public void lowerLift() {
-    	if(isAtFloor())
-    		stopLift();
-    	else motor.set(-speed/2);
+    	motor.set(-speed);
+//    	if(isAtFloor())
+//    		stopLift();
+//    	else motor.set(-speed/2);
     }
 
     public void stopLift() {
@@ -69,15 +71,15 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public boolean isAtFloor() {
-    	return !limitFloor.get();
+    	return limitFloor.get();
     }
 
     public boolean isAtSwitch() {
-    	return !limitSwitch.get();
+    	return limitSwitch.get();
     }
 
     public boolean isAtScale() {
-    	return !limitScale.get();
+    	return limitScale.get();
     }
 
     public void moveToFloor() {

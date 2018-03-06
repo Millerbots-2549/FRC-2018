@@ -25,13 +25,11 @@ public class DrivetrainSubsystem extends Subsystem {
     private Talon rightMotor;
     private Encoder leftEnc;
     private Encoder rightEnc;
-    //private SafePWM rightSonar;
-    private AnalogInput sonar;
+    private AnalogInput leftSonar;
+    private AnalogInput rightSonar;
     private ADXRS450_Gyro gyro;
     private ADIS16448_IMU imu;
 
-    private double halfSpeed;
-    private double fullSpeed;
     private double speed;
 
     public DrivetrainSubsystem() {
@@ -45,14 +43,12 @@ public class DrivetrainSubsystem extends Subsystem {
         leftEnc = new Encoder(RobotMap.leftDriveEnc[0], RobotMap.leftDriveEnc[1]);
         rightEnc = new Encoder(RobotMap.rightDriveEnc[0], RobotMap.rightDriveEnc[1]);
 
-        //rightSonar = new SafePWM(9);
-        sonar = new AnalogInput(0);
+        leftSonar = new AnalogInput(RobotMap.leftSonar);
+        rightSonar = new AnalogInput(RobotMap.rightSonar);
         gyro = new ADXRS450_Gyro();
         imu = new ADIS16448_IMU();
-
-        halfSpeed = .5;
-        fullSpeed = 1;
-        speed = fullSpeed;
+        
+        speed = 1;
     }
 
     public void initDefaultCommand() {
@@ -109,7 +105,7 @@ public class DrivetrainSubsystem extends Subsystem {
     }
 
     public int getSonar() {
-        return sonar.getValue();
+        return leftSonar.getValue();
     }
 }
 

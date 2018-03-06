@@ -44,10 +44,13 @@ public class LiftCommand extends Command {
     	Robot.lift.updatePosition();
 
     	if(Robot.oi.getLiftDown())
+    	{
+    		System.out.println("aegagyiiu");
     		Robot.lift.lowerLift();
+    	}
     	else if(Robot.oi.getLiftUp())
     		Robot.lift.raiseLift();
-    	//else Robot.lift.stopLift();
+    	else Robot.lift.stopLift();
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -93,6 +93,7 @@ public class OI {
     	return 0;
     }
     
+    
     public boolean getManipulatorIn() {
     	if(ctrlType == ControllerType.joystick) return joyManipulatorIn.get();
     	else if(ctrlType == ControllerType.controller) return ctrlManipulatorIn.get();
@@ -109,24 +110,24 @@ public class OI {
     	if(ctrlType == ControllerType.joystick) return joyLiftDown.get();
     	return false;
     }
-    
+
     public boolean getLiftUp() {
     	if(ctrlType == ControllerType.joystick) return joyLiftUp.get();
     	return false;
     }
-    
+
     public boolean getLiftFloor() {
     	if(ctrlType == ControllerType.joystick) return joyLiftFloor.get();
     	else if(ctrlType == ControllerType.controller) return ctrl.getPOV() == ctrlLiftFloor;
     	return false;
     }
-    
+
     public boolean getLiftSwitch() {
     	if(ctrlType == ControllerType.joystick) return joyLiftSwitch.get();
     	else if(ctrlType == ControllerType.controller) return ctrl.getPOV() == ctrlLiftSwitch;
     	return false;
     }
-    
+
     public boolean getLiftScale() {
     	if(ctrlType == ControllerType.joystick) return joyLiftScale.get();
     	else if(ctrlType == ControllerType.controller) return ctrl.getPOV() == ctrlLiftScale;

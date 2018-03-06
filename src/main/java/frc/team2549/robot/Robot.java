@@ -194,6 +194,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Limit Floor", lift.isAtFloor());
         SmartDashboard.putBoolean("Limit Switch", lift.isAtSwitch());
         SmartDashboard.putBoolean("Limit Scale", lift.isAtScale());
+        
+        SmartDashboard.putBoolean("liftup", oi.getLiftUp());
         //SmartDashboard.putNumber("Hal says:", lift.hal.getAverageVoltage());
         //SmartDashboard.putNumber("Hal sayss:", lift.hal.getVoltage());
         //SmartDashboard.putNumber("Hal saysss:", lift.hal.getValue());
