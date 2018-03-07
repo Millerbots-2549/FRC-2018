@@ -177,11 +177,11 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Encoder Average", drivetrain.getEncoderAvg());
         SmartDashboard.putNumber("sonar", drivetrain.getSonar());
 
-        SmartDashboard.putNumber("IMU Temp", drivetrain.getIMU().getTemperature());
-        SmartDashboard.putNumber("IMU Pres", drivetrain.getIMU().getBarometricPressure());
-        SmartDashboard.putNumber("IMU MagX", drivetrain.getIMU().getMagX());
-        SmartDashboard.putNumber("IMU MagY", drivetrain.getIMU().getMagY());
-        SmartDashboard.putNumber("IMU MagZ", drivetrain.getIMU().getMagZ());
+//        SmartDashboard.putNumber("IMU Temp", drivetrain.getIMU().getTemperature());
+//        SmartDashboard.putNumber("IMU Pres", drivetrain.getIMU().getBarometricPressure());
+//        SmartDashboard.putNumber("IMU MagX", drivetrain.getIMU().getMagX());
+//        SmartDashboard.putNumber("IMU MagY", drivetrain.getIMU().getMagY());
+//        SmartDashboard.putNumber("IMU MagZ", drivetrain.getIMU().getMagZ());
 
         // Manipulator
         SmartDashboard.putNumber("Manip Motors", manipulator.getMotors());
@@ -194,15 +194,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Limit Floor", lift.isAtFloor());
         SmartDashboard.putBoolean("Limit Switch", lift.isAtSwitch());
         SmartDashboard.putBoolean("Limit Scale", lift.isAtScale());
-        
+
         SmartDashboard.putBoolean("liftup", oi.getLiftUp());
-        //SmartDashboard.putNumber("Hal says:", lift.hal.getAverageVoltage());
-        //SmartDashboard.putNumber("Hal sayss:", lift.hal.getVoltage());
-        //SmartDashboard.putNumber("Hal saysss:", lift.hal.getValue());
-        //SmartDashboard.putBoolean("This means", lift.getHal());
-        //SmartDashboard.putBoolean("limit", limit.get());
-        //SmartDashboard.putBoolean("sensing_cube", table.getBoolean("sensing_cube", false));
-        //SmartDashboard.putNumber("sonaric", drivetrain.getSonar().getRaw());//drivetrain.getSonar().getRaw());
+        SmartDashboard.putBoolean("liftdown", oi.getLiftDown());
     }
 
     public enum SpeedType {full, half}

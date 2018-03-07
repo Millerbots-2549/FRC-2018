@@ -11,7 +11,7 @@ import frc.team2549.robot.commands.ManipulatorCommand;
  *
  */
 public class ManipulatorSubsystem extends Subsystem {
-	
+
     private Talon motor;
     private DigitalInput boxIn;
     private double speed;
@@ -33,7 +33,7 @@ public class ManipulatorSubsystem extends Subsystem {
     public void initDefaultCommand() {
         setDefaultCommand(new ManipulatorCommand());
     }
-    
+
     public void setSpeed(double speed) {
     	this.speed = speed;
     }

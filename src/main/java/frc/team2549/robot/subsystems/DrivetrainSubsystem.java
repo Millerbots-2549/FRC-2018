@@ -28,7 +28,7 @@ public class DrivetrainSubsystem extends Subsystem {
     private AnalogInput leftSonar;
     private AnalogInput rightSonar;
     private ADXRS450_Gyro gyro;
-    private ADIS16448_IMU imu;
+    //private ADIS16448_IMU imu;
 
     private double speed;
 
@@ -46,8 +46,8 @@ public class DrivetrainSubsystem extends Subsystem {
         leftSonar = new AnalogInput(RobotMap.leftSonar);
         rightSonar = new AnalogInput(RobotMap.rightSonar);
         gyro = new ADXRS450_Gyro();
-        imu = new ADIS16448_IMU();
-        
+//        try { imu = new ADIS16448_IMU(); }
+//        finally { System.out.println("Error: rawr xD"); };
         speed = 1;
     }
 
@@ -101,7 +101,7 @@ public class DrivetrainSubsystem extends Subsystem {
     }
 
     public ADIS16448_IMU getIMU() {
-        return imu;
+        return null; //imu;
     }
 
     public int getSonar() {
