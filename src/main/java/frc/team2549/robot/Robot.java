@@ -2,6 +2,7 @@ package frc.team2549.robot;
 
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -34,6 +35,8 @@ public class Robot extends IterativeRobot {
     public static final CameraSubsystem vision = new CameraSubsystem();
 
     private static final SendableChooser<Command> autoChooser = new SendableChooser<>();
+    private static final SendableChooser<Objective> objChooser = new SendableChooser<>();
+    private static final SendableChooser<Position> pstnChooser = new SendableChooser<>();
     private static final SendableChooser<OI.ControllerType> ctrlChooser = new SendableChooser<>();
     private static final SendableChooser<SpeedType> speedChooser = new SendableChooser<>();
 
@@ -49,6 +52,14 @@ public class Robot extends IterativeRobot {
     public static SpeedType getSpeedType() {
         return speedChooser.getSelected();
     }
+    
+    public static Position getStartingPosition() {
+        return pstnChooser.getSelected();
+    }
+    
+    public static Objective getObjective() {
+        return objChooser.getSelected();
+    }
 
     /**
      * This function is run when the robot is first started up and should be
@@ -60,7 +71,15 @@ public class Robot extends IterativeRobot {
 
         tableInst = NetworkTableInstance.getDefault();
         table = tableInst.getTable("SmartDashboard");
-
+        
+        pstnChooser.addDefault("Left", Position.left);
+        pstnChooser.addObject("Middle", Position.middle);
+        pstnChooser.addObject("Right", Position.right);
+        
+        objChooser.addDefault("Scale", Objective.scale);
+        objChooser.addObject("Switch", Objective.kswitch);
+        objChooser.addObject("Portal", Objective.portal);
+        
         autoChooser.addDefault("Left Scale", new AutoLeftScale());
         autoChooser.addObject("Left Switch", new AutoLeftSwitch());
         autoChooser.addObject("MidLeft Switch", new AutoMidLeftSwitch());
@@ -74,9 +93,11 @@ public class Robot extends IterativeRobot {
         speedChooser.addDefault("Full Speed", SpeedType.full);
         speedChooser.addObject("Half Speed", SpeedType.half);
 
-        SmartDashboard.putData("Auto mode", autoChooser);
-        SmartDashboard.putData("Controller type", ctrlChooser);
+        //SmartDashboard.putData("Auto mode", autoChooser);
+        //SmartDashboard.putData("Controller type", ctrlChooser);
         SmartDashboard.putData("Speed", speedChooser);
+        SmartDashboard.putData("Position", pstnChooser);
+        SmartDashboard.putData("Objective", objChooser);
 
         //table = NetworkTableInstance.getTable("SmartDashboard");
     }
@@ -117,7 +138,33 @@ public class Robot extends IterativeRobot {
          * = new MyAutoCommand(); break; case "Default Auto": default:
          * autonomousCommand = new ExampleCommand(); break; }
          */
-
+        
+        drivetrain.resetSensors();
+        
+        String gameData = DriverStation.getInstance().getGameSpecificMessage();
+        if(gameData.length() > 0) {
+        	
+        	if(gameData.charAt(0) == 'L' && pstnChooser.getSelected() == Position.middle) {
+        		System.out.println("Auto Middle Left Switch");
+        		autonomousCommand = new AutoMidLeftSwitch();
+        	}
+        	
+        	if(gameData.charAt(0) == 'R' && pstnChooser.getSelected() == Position.middle) {
+        		System.out.println("Auto Middle Right Switch");
+        		autonomousCommand = new AutoMidRightSwitch();
+        	}
+        	
+        	if(gameData.charAt(0) == 'R' && pstnChooser.getSelected() == Position.right && objChooser.getSelected() == Objective.kswitch) {
+        		System.out.println("Auto Right Right Switch");
+        		autonomousCommand = new AutoRightSwitch();
+        	}
+        	
+        	if(gameData.charAt(1) == 'R' && pstnChooser.getSelected() == Position.right && objChooser.getSelected() == Objective.scale) {
+        		System.out.println("Auto Right Right Scale");
+        		autonomousCommand = new AutoRightScale();
+        	}
+        }
+        
         // schedule the autonomous command (example)
         if (autonomousCommand != null)
             autonomousCommand.start();
@@ -129,6 +176,7 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        updateDashboard();
     }
 
     @Override
@@ -140,6 +188,8 @@ public class Robot extends IterativeRobot {
         if (autonomousCommand != null)
             autonomousCommand.cancel();
 
+        drivetrain.resetSensors();
+        
         updateDashboard();
     }
 
@@ -175,8 +225,10 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Left Encoder", drivetrain.getEncoder(0));
         SmartDashboard.putNumber("Right Encoder", drivetrain.getEncoder(1));
         SmartDashboard.putNumber("Encoder Average", drivetrain.getEncoderAvg());
-        SmartDashboard.putNumber("sonar", drivetrain.getSonar());
-
+        SmartDashboard.putNumber("Left Sonar", drivetrain.getSonar(0));
+        SmartDashboard.putNumber("Right Sonar", drivetrain.getSonar(1));
+        SmartDashboard.putNumber("Angle", drivetrain.getAngle());
+        
 //        SmartDashboard.putNumber("IMU Temp", drivetrain.getIMU().getTemperature());
 //        SmartDashboard.putNumber("IMU Pres", drivetrain.getIMU().getBarometricPressure());
 //        SmartDashboard.putNumber("IMU MagX", drivetrain.getIMU().getMagX());
@@ -194,10 +246,9 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putBoolean("Limit Floor", lift.isAtFloor());
         SmartDashboard.putBoolean("Limit Switch", lift.isAtSwitch());
         SmartDashboard.putBoolean("Limit Scale", lift.isAtScale());
-
-        SmartDashboard.putBoolean("liftup", oi.getLiftUp());
-        SmartDashboard.putBoolean("liftdown", oi.getLiftDown());
     }
 
-    public enum SpeedType {full, half}
+    public enum Objective { scale, kswitch, portal }
+    public enum Position { left, middle, right }
+    public enum SpeedType { full, half }
 }

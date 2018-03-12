@@ -42,7 +42,7 @@ public class DrivetrainSubsystem extends Subsystem {
 
         leftEnc = new Encoder(RobotMap.leftDriveEnc[0], RobotMap.leftDriveEnc[1]);
         rightEnc = new Encoder(RobotMap.rightDriveEnc[0], RobotMap.rightDriveEnc[1]);
-
+        
         leftSonar = new AnalogInput(RobotMap.leftSonar);
         rightSonar = new AnalogInput(RobotMap.rightSonar);
         gyro = new ADXRS450_Gyro();
@@ -81,31 +81,44 @@ public class DrivetrainSubsystem extends Subsystem {
             case 0:
                 return leftEnc.get();
             case 1:
-                return rightEnc.get();
+                return -rightEnc.get();
             default:
                 return .0;
         }
     }
     
     public double getEncoderAvg() {
-    	return (getEncoder(0) + getEncoder(1)) / 2;
+    	return getEncoder(1);
+    	//return (getEncoder(0) + getEncoder(1)) / 2;
     }
     
     public void resetEncoders() {
     	leftEnc.reset();
     	rightEnc.reset();
     }
-    
+
     public double getAngle() {
     	return gyro.getAngle();
     }
 
-    public ADIS16448_IMU getIMU() {
-        return null; //imu;
-    }
+//    public ADIS16448_IMU getIMU() {
+//        return imu;
+//    }
 
-    public int getSonar() {
-        return leftSonar.getValue();
+    public int getSonar(int side) {
+    	switch (side) {
+        case 0:
+            return leftSonar.getValue();
+        case 1:
+            return rightSonar.getValue();
+        default:
+            return 0;
+    	}
+    }
+    
+    public void resetSensors() {
+    	gyro.reset();
+    	resetEncoders();
     }
 }
 

@@ -8,10 +8,14 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoLeftScale extends CommandGroup {
 
     public AutoLeftScale() {
-    	addSequential(new DriveDistance(200, .4));
-    	
-    	
-    	//addSequential(new DriveDistance(1150, 0, .3));
+    	//addParallel(new DriveDistance(200, .5));
+    	//addSequential(new TurnGyro(100, .4));
+    	Robot.manipulator.servoRelease(true);
+
+    	addSequential(new DriveDistance(700, .6));
+    	addSequential(new LiftToSwitch());
+    	addSequential(new ManipulatorIn(.5));
+    	addSequential(new LiftToFloor());
 
         // Add Commands here:
         // e.g. addSequential(new Command1());

@@ -74,7 +74,7 @@ public class OI {
     // GETTERS
     ///////////////////////////////////////////////////////////////////////////
     
-    public enum ControllerType {controller, joystick}
+    public enum ControllerType { controller, joystick }
     private ControllerType ctrlType = ControllerType.joystick;
     
     public void setCtrlType(ControllerType ctrlType) {
@@ -133,7 +133,7 @@ public class OI {
     	else if(ctrlType == ControllerType.controller) return ctrl.getPOV() == ctrlLiftScale;
     	return false;
     }
-    
+
     public boolean getServoDown() {
     	if(ctrlType == ControllerType.joystick) return joyServoDown.get();
     	else if(ctrlType == ControllerType.controller) return ctrlServoDown.get();

@@ -22,6 +22,7 @@ public class LiftSubsystem extends Subsystem {
     private Talon motor;
     private double speed;
     private int position;
+    private boolean moving;
 
     public LiftSubsystem() {
         super(LiftSubsystem.class.getSimpleName());
@@ -32,6 +33,7 @@ public class LiftSubsystem extends Subsystem {
 
         speed = 1;
         position = 0;
+        moving = false;
     }
 
     public void initDefaultCommand() {
@@ -43,21 +45,24 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void raiseLift() {
-    	motor.set(speed);
-//    	if(isAtScale())
-//    		stopLift();
-//    	else motor.set(speed);
+//    	motor.set(speed);
+    	if(isAtScale())
+    		stopLift();
+    	else motor.set(speed);
+    	moving = true;
     }
 
     public void lowerLift() {
-    	motor.set(-speed);
-//    	if(isAtFloor())
-//    		stopLift();
-//    	else motor.set(-speed/2);
+//    	motor.set(-speed);
+    	if(isAtFloor())
+    		stopLift();
+    	else motor.set(-speed*.75);
+    	moving = false;
     }
 
     public void stopLift() {
         motor.set(0.0);
+        moving = false;
     }
 
     public int getPosition() {
@@ -65,9 +70,22 @@ public class LiftSubsystem extends Subsystem {
     }
     
     public void updatePosition() {
-    	if((position == 0 && isAtFloor()) ||
-    			(position == 1 && isAtSwitch()) ||
-    			(position == 2 && isAtScale())) stopLift();
+    	if(position == 0)
+    		lowerLift();
+    	else if(position == 2)
+    		raiseLift();
+    	else if(position == 1 && isAtFloor())
+    		raiseLift();
+    	else if(position == 1 && isAtScale())
+    		lowerLift();
+    		
+        if((position == 0 && isAtFloor()) ||
+			(position == 1 && isAtSwitch()) ||
+			(position == 2 && isAtScale())) stopLift();
+    }
+    
+    public boolean isMoving() {
+    	return moving;
     }
 
     public boolean isAtFloor() {
@@ -83,7 +101,7 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void moveToFloor() {
-    	lowerLift();
+//    	lowerLift();
     	position = 0;
 //    	System.out.println("In move to floor");
 //    	if(!isAtFloor())
@@ -92,10 +110,10 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void moveToSwitch() {
-    	if(position == 0)
-    		raiseLift();
-    	else if(position == 2)
-    		lowerLift();
+//    	if(position == 0)
+//    		raiseLift();
+//    	else if(position == 2)
+//    		lowerLift();
     	position = 1;
 //    	System.out.println("In move to switch");
 //    	if(!isAtSwitch())
@@ -107,7 +125,7 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public void moveToScale() {
-    	raiseLift();
+    	//raiseLift();
     	position = 2;
 //    	System.out.println("In move to scale");
 //    	if(!isAtScale()) {

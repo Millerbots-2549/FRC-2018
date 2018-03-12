@@ -25,8 +25,8 @@ public class ManipulatorSubsystem extends Subsystem {
         motor = new Talon(RobotMap.manipulatorMotors);
         servo = new Servo(RobotMap.releaseServo);
         boxIn = new DigitalInput(RobotMap.boxIn);
-        servoDownPos = 0;
-        servoUpPos = .75; // change these
+        servoDownPos = .4;
+        servoUpPos = 1; // change these
         speed = 1;
     }
 

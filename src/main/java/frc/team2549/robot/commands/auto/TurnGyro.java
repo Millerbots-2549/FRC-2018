@@ -2,42 +2,37 @@ package frc.team2549.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2549.robot.Robot;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
  */
-public class DriveDistance extends Command {
+public class TurnGyro extends Command {
 
-	private int distance, range;
-	private double speed, amount, angle, startingAngle;
+	private double angle;
+	private double speed;
 	
-    public DriveDistance(int distance, double speed) {
+    public TurnGyro(double angle, double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.drivetrain);
-        this.distance = distance;
+        this.angle = angle;
         this.speed = -speed;
-        this.range = 100;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.resetSensors();
-    	startingAngle = Robot.drivetrain.getAngle();
+    	Robot.drivetrain.resetEncoders();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	angle = Robot.drivetrain.getAngle();
-    	amount = .01*(startingAngle - angle);
-    	
-    	Robot.drivetrain.driveTank(speed - amount, speed + amount);
+    	Robot.drivetrain.driveTank(angle > 0 ? speed : -speed,
+    			angle > 0 ? -speed : speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return Robot.drivetrain.getEncoderAvg() >= distance;
+    	return Math.abs(Robot.drivetrain.getAngle()) >= Math.abs(angle);
     }
 
     // Called once after isFinished returns true

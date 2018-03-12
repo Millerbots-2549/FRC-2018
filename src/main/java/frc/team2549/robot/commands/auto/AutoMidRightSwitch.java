@@ -8,6 +8,24 @@ public class AutoMidRightSwitch extends CommandGroup {
 
     public AutoMidRightSwitch() {
     	//addSequential(new DriveDistance(1150, 0, .3));
+    	
+    	Robot.manipulator.servoRelease(true);
+    	
+    	addParallel(new ManipulatorIn(1));
+    	
+    	addSequential(new DriveDistance(400, .6));
+    	
+    	addSequential(new TurnGyro(20, .5));
+    	
+    	addSequential(new DriveDistance(1000, .6));
+    	
+    	addParallel(new ManipulatorIn(1));
+    	addSequential(new TurnGyro(-20, .5));
+    	
+    	addParallel(new DriveDistance(100, .5));
+    	addSequential(new LiftToSwitch());
+    	
+    	addSequential(new ManipulatorOut(.5));
 
         // Add Commands here:
         // e.g. addSequential(new Command1());

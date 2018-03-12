@@ -38,8 +38,8 @@ public class ManipulatorCommand extends Command {
     	else if(Robot.oi.getServoUp())
     		Robot.manipulator.servoRelease(false);
 
-    	if(Robot.vision.sensingCube())
-    		Robot.manipulator.takeIn();
+//    	if(Robot.vision.sensingCube())
+//    		Robot.manipulator.takeIn();
 
     	if(Robot.oi.getManipulatorOut())
     		Robot.manipulator.pushOut();

@@ -22,32 +22,33 @@ public class LiftCommand extends Command {
     }
 
     protected void execute() {
-    	if(Robot.oi.getLiftFloor()) {
-    		System.out.println("floor");
-    		Robot.lift.moveToFloor();
-//    		Command c = new LiftToFloor();
-//    		c.start();
-    	}
-    	else if(Robot.oi.getLiftSwitch()) {
-    		System.out.println("switch");
-    		Robot.lift.moveToSwitch();
-//    		Command c = new LiftToSwitch();
-//    		c.start();
-    	}
-    	else if(Robot.oi.getLiftScale()) {
-    		System.out.println("scale");
-    		Robot.lift.moveToScale();
-//    		Command c = new LiftToScale();
-//    		c.start();
-    	}
-
-    	Robot.lift.updatePosition();
 
     	if(Robot.oi.getLiftDown())
     		Robot.lift.lowerLift();
     	else if(Robot.oi.getLiftUp())
     		Robot.lift.raiseLift();
-    	else Robot.lift.stopLift();
+    	else {
+//    		if(!Robot.lift.isMoving())
+    			Robot.lift.stopLift();
+//    		
+//    		if(Robot.oi.getLiftFloor()) {
+////        		Robot.lift.moveToFloor();
+//    			Command c = new LiftToFloor();
+//        		c.start();
+//    		}
+//        	else if(Robot.oi.getLiftSwitch()) {
+////        		Robot.lift.moveToSwitch();
+//        		Command c = new LiftToSwitch();
+//        		c.start();
+//        	}
+//        	else if(Robot.oi.getLiftScale()) {
+////        		Robot.lift.moveToScale();
+//        		Command c = new LiftToScale();
+//        		c.start();
+//        	}
+    		
+//    		Robot.lift.updatePosition();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

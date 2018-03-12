@@ -8,8 +8,6 @@ import frc.team2549.robot.Robot;
  */
 public class LiftToSwitch extends Command {
 
-    double speed;
-
     public LiftToSwitch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
