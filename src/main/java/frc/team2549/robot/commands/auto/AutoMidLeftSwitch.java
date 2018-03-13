@@ -7,14 +7,12 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoMidLeftSwitch extends CommandGroup {
 
     public AutoMidLeftSwitch() {
-   
-    	Robot.manipulator.servoRelease(true);
     	
     	addParallel(new ManipulatorIn(1));
     	
-    	addSequential(new DriveDistance(400, .6));
+    	addSequential(new DriveStraight(400, .6));
     	addSequential(new TurnGyro(-50, .5));
-    	addSequential(new DriveDistance(1400, .6));
+    	addSequential(new DriveStraight(1400, .6));
     	addParallel(new ManipulatorIn(1));
     	addSequential(new TurnGyro(45, .5));
     	//addParallel(new DriveDistance(100, .5));

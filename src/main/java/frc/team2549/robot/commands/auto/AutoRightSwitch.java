@@ -7,16 +7,15 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoRightSwitch extends CommandGroup {
 
     public AutoRightSwitch() {
-    
-    	Robot.manipulator.servoRelease(true);
-
+    	
     	addParallel(new ManipulatorIn(1));
 
-    	addSequential(new DriveDistance(2150, .8));
-
-    	addSequential(new TurnGyro(-60, .6));
-    	addSequential(new LiftToSwitch());
-    	addSequential(new DriveDistance(500, .5));
+    	addSequential(new DriveStraight(2150, .8));
+    	
+    	addParallel(new ManipulatorIn(.3));
+    	addSequential(new TurnGyro(-90, .5));
+    	addParallel(new LiftToSwitch());
+    	addSequential(new DriveStraight(500, .5));
     	
     	addSequential(new ManipulatorOut(.5));
     	

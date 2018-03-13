@@ -13,12 +13,19 @@ import frc.team2549.robot.subsystems.DrivetrainSubsystem;
 import frc.team2549.robot.subsystems.LiftSubsystem;
 import frc.team2549.robot.subsystems.ManipulatorSubsystem;
 import frc.team2549.robot.subsystems.CameraSubsystem;
+
 import frc.team2549.robot.commands.auto.AutoRightScale;
+import frc.team2549.robot.commands.auto.AutoRightLeftScale;
 import frc.team2549.robot.commands.auto.AutoRightSwitch;
+
 import frc.team2549.robot.commands.auto.AutoMidLeftSwitch;
 import frc.team2549.robot.commands.auto.AutoMidRightSwitch;
+
 import frc.team2549.robot.commands.auto.AutoLeftScale;
+import frc.team2549.robot.commands.auto.AutoLeftRightScale;
 import frc.team2549.robot.commands.auto.AutoLeftSwitch;
+
+import frc.team2549.robot.commands.auto.AutoTest;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -144,26 +151,77 @@ public class Robot extends IterativeRobot {
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
         if(gameData.length() > 0) {
         	
-        	if(gameData.charAt(0) == 'L' && pstnChooser.getSelected() == Position.middle) {
+        	
+        	
+        	// MIDDLE POSITION, LEFT SWITCH
+        	if(gameData.charAt(0) == 'L'&&
+        			pstnChooser.getSelected() == Position.middle) {
         		System.out.println("Auto Middle Left Switch");
         		autonomousCommand = new AutoMidLeftSwitch();
         	}
-        	
-        	if(gameData.charAt(0) == 'R' && pstnChooser.getSelected() == Position.middle) {
+        	// MIDDLE POSITION, RIGHT SWITCH
+        	else if(gameData.charAt(0) == 'R' &&
+        			pstnChooser.getSelected() == Position.middle) {
         		System.out.println("Auto Middle Right Switch");
         		autonomousCommand = new AutoMidRightSwitch();
         	}
-        	
-        	if(gameData.charAt(0) == 'R' && pstnChooser.getSelected() == Position.right && objChooser.getSelected() == Objective.kswitch) {
+        	// #####################################################
+        	// RIGHT POSITION, RIGHT SWITCH
+        	else if(gameData.charAt(0) == 'R' &&
+        			pstnChooser.getSelected() == Position.right &&
+        			objChooser.getSelected() == Objective.kswitch) {
         		System.out.println("Auto Right Right Switch");
         		autonomousCommand = new AutoRightSwitch();
         	}
-        	
-        	if(gameData.charAt(1) == 'R' && pstnChooser.getSelected() == Position.right && objChooser.getSelected() == Objective.scale) {
-        		System.out.println("Auto Right Right Scale");
+        	// RIGHT POSITION, RIGHT SCALE
+        	else if(gameData.charAt(1) == 'R' &&
+        			pstnChooser.getSelected() == Position.right &&
+        			objChooser.getSelected() == Objective.scale) {
+        		System.out.println("Auto Right Scale");
         		autonomousCommand = new AutoRightScale();
         	}
+        	// RIGHT POSITION, LEFT SCALE
+        	else if(gameData.charAt(1) == 'L' &&
+        			pstnChooser.getSelected() == Position.right &&
+        			objChooser.getSelected() == Objective.scale) {
+        		System.out.println("Auto Right Left Scale");
+        		autonomousCommand = new AutoRightLeftScale();
+        	}
+        	// #####################################################
+        	// LEFT POSITION, LEFT SWITCH
+        	else if(gameData.charAt(0) == 'L' &&
+        			pstnChooser.getSelected() == Position.left &&
+        			objChooser.getSelected() == Objective.kswitch) {
+        		System.out.println("Auto Left Switch");
+        		autonomousCommand = new AutoLeftSwitch();
+        	}
+        	// LEFT POSITION, LEFT SCALE
+        	else if(gameData.charAt(1) == 'L' &&
+        			pstnChooser.getSelected() == Position.left &&
+        			objChooser.getSelected() == Objective.scale) {
+        		System.out.println("Auto Left Scale");
+        		autonomousCommand = new AutoLeftScale();
+        	}
+        	// LEFT POSITION, RIGHT SCALE
+        	else if(gameData.charAt(1) == 'R' &&
+        			pstnChooser.getSelected() == Position.left &&
+        			objChooser.getSelected() == Objective.scale) {
+        		System.out.println("Auto Left Right Scale");
+        		autonomousCommand = new AutoLeftRightScale();
+        	}
+        	// #####################################################
+        	// TEST
+        	else if(gameData.charAt(0) == 'T') {
+        		System.out.println("Auto Test");
+        		autonomousCommand = new AutoTest();
+        	} else {
+        		System.out.println("No Auto");
+        		autonomousCommand = null;
+        	}
         }
+        
+        manipulator.servoRelease(true);
+    	drivetrain.resetSensors();
         
         // schedule the autonomous command (example)
         if (autonomousCommand != null)

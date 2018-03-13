@@ -5,25 +5,13 @@ import frc.team2549.robot.commands.auto.DriveStraight;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutoLeftScale extends CommandGroup {
+public class AutoTest extends CommandGroup {
 
-    public AutoLeftScale() {
+    public AutoTest() {
     	//addParallel(new DriveDistance(200, .5));
     	//addSequential(new TurnGyro(100, .4));
-
-    	addParallel(new ManipulatorIn(1));
-
-    	addSequential(new DriveStraight(4200, .8));
-
-    	addParallel(new ManipulatorIn(.2));
-    	addSequential(new TurnGyro(20, .5));
     	
-    	
-    	addSequential(new LiftToScale());
-    	addSequential(new DriveStraight(300, .5));
-
-    	addSequential(new ManipulatorOut(.5));
-    	
+    	addSequential(new DriveDistance(1500, .4, ))
 
         // Add Commands here:
         // e.g. addSequential(new Command1());

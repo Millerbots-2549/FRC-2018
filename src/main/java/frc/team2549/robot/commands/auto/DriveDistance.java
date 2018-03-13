@@ -2,37 +2,33 @@ package frc.team2549.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2549.robot.Robot;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
  */
 public class DriveDistance extends Command {
 
-	private int distance, range;
-	private double speed, amount, angle, startingAngle;
+	private double distance, startingDistance;
+	private double leftSpeed, rightSpeed;
 	
-    public DriveDistance(int distance, double speed) {
+    public DriveDistance(double distance, double leftSpeed, double rightSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
         requires(Robot.drivetrain);
         this.distance = distance;
-        this.speed = -speed;
-        this.range = 100;
+        this.leftSpeed = -leftSpeed;
+        this.rightSpeed = -rightSpeed;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Robot.drivetrain.resetSensors();
-    	startingAngle = Robot.drivetrain.getAngle();
+    	System.out.println("DriveDistance");
+//    	Robot.drivetrain.resetSensors();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	angle = Robot.drivetrain.getAngle();
-    	amount = .01*(startingAngle - angle);
-    	
-    	Robot.drivetrain.driveTank(speed - amount, speed + amount);
+    	Robot.drivetrain.driveTank(leftSpeed, rightSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()

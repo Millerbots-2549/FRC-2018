@@ -8,19 +8,17 @@ public class AutoRightScale extends CommandGroup {
 
     public AutoRightScale() {
     	//addSequential(new DriveDistance(1150, 0, .3));
-    	
-    	Robot.manipulator.servoRelease(true);
-
-    	Robot.manipulator.servoRelease(true);
 
     	addParallel(new ManipulatorIn(1));
 
-    	addSequential(new DriveDistance(4000, .8));
+    	addSequential(new DriveStraight(3900, .8));
 
-    	addParallel(new TurnGyro(-45, .7));
+    	addParallel(new ManipulatorIn(.2));
+    	addSequential(new TurnGyro(-60, .5));
+
+    	addParallel(new DriveStraight(200, .4));
     	addSequential(new LiftToScale());
-    	addSequential(new DriveDistance(300, .4));
-    	
+
     	addSequential(new ManipulatorOut(.5));
 
         // Add Commands here:

@@ -76,6 +76,11 @@ public class DrivetrainSubsystem extends Subsystem {
         }
     }
 
+    public void disableMotors() {
+    	leftMotor.setDisabled();
+    	rightMotor.setDisabled();
+    }
+
     public double getEncoder(int side) {
         switch (side) {
             case 0:
