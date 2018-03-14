@@ -11,14 +11,15 @@ public class AutoRightScale extends CommandGroup {
 
     	addParallel(new ManipulatorIn(1));
 
-    	addSequential(new DriveStraight(3900, .8));
+    	addSequential(new DriveStraight(3500, .8));
 
     	addParallel(new ManipulatorIn(.2));
-    	addSequential(new TurnGyro(-60, .5));
+    	addSequential(new TurnGyro(-20, .5));
 
-    	addParallel(new DriveStraight(200, .4));
+    	addParallel(new DriveStraight(750, .5));
     	addSequential(new LiftToScale());
-
+    	addSequential(new DriveStraight(300,.4));
+    	
     	addSequential(new ManipulatorOut(.5));
 
         // Add Commands here:

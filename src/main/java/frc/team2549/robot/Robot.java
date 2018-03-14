@@ -150,15 +150,15 @@ public class Robot extends IterativeRobot {
         
         String gameData = DriverStation.getInstance().getGameSpecificMessage();
         if(gameData.length() > 0) {
-        	
-        	
-        	
+        	final Command autonomousCommand;
+
         	// MIDDLE POSITION, LEFT SWITCH
         	if(gameData.charAt(0) == 'L'&&
         			pstnChooser.getSelected() == Position.middle) {
         		System.out.println("Auto Middle Left Switch");
         		autonomousCommand = new AutoMidLeftSwitch();
-        	}
+        		}
+       
         	// MIDDLE POSITION, RIGHT SWITCH
         	else if(gameData.charAt(0) == 'R' &&
         			pstnChooser.getSelected() == Position.middle) {
@@ -179,11 +179,19 @@ public class Robot extends IterativeRobot {
         			objChooser.getSelected() == Objective.scale) {
         		System.out.println("Auto Right Scale");
         		autonomousCommand = new AutoRightScale();
+        		
         	}
-        	// RIGHT POSITION, LEFT SCALE
         	else if(gameData.charAt(1) == 'L' &&
         			pstnChooser.getSelected() == Position.right &&
-        			objChooser.getSelected() == Objective.scale) {
+        			objChooser.getSelected() == Objective.scale &&
+        			gameData.charAt(0) == 'R') {
+        		System.out.println("Auto Right Right Switch");
+        		autonomousCommand = new AutoRightSwitch();
+        	}
+        	else if(gameData.charAt(1) == 'L' &&
+        			pstnChooser.getSelected() == Position.right &&
+        			objChooser.getSelected() == Objective.scale &&
+        			gameData.charAt(0) == 'L') {
         		System.out.println("Auto Right Left Scale");
         		autonomousCommand = new AutoRightLeftScale();
         	}
@@ -202,13 +210,19 @@ public class Robot extends IterativeRobot {
         		System.out.println("Auto Left Scale");
         		autonomousCommand = new AutoLeftScale();
         	}
-        	// LEFT POSITION, RIGHT SCALE
         	else if(gameData.charAt(1) == 'R' &&
         			pstnChooser.getSelected() == Position.left &&
-        			objChooser.getSelected() == Objective.scale) {
+        			objChooser.getSelected() == Objective.scale && gameData.charAt(0) == 'L') {
+        		System.out.println("Auto Left Switch");
+        		autonomousCommand = new AutoLeftSwitch();
+        	}
+        	else if(gameData.charAt(1) == 'R' &&
+        			pstnChooser.getSelected() == Position.left &&
+        			objChooser.getSelected() == Objective.scale && gameData.charAt(0) == 'R') {
         		System.out.println("Auto Left Right Scale");
         		autonomousCommand = new AutoLeftRightScale();
         	}
+        	
         	// #####################################################
         	// TEST
         	else if(gameData.charAt(0) == 'T') {
@@ -218,6 +232,7 @@ public class Robot extends IterativeRobot {
         		System.out.println("No Auto");
         		autonomousCommand = null;
         	}
+        	this.autonomousCommand = autonomousCommand;
         }
         
         manipulator.servoRelease(true);

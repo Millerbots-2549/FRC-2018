@@ -15,11 +15,11 @@ public class AutoLeftRightScale extends CommandGroup {
 
     	addParallel(new ManipulatorIn(1));
 
-    	addSequential(new DriveStraight(4000, .8));
+    	addSequential(new DriveStraight(2800, .8));
 
-    	addParallel(new TurnGyro(-45, .7));
+    	addParallel(new TurnGyro(-10, .7));
     	addSequential(new LiftToScale());
-    	addSequential(new DriveStraight(300, .4));
+    	addSequential(new DriveStraight(1300, .4));
     	
     	addSequential(new ManipulatorOut(.5));
 

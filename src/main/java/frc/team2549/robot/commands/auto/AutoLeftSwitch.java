@@ -8,6 +8,18 @@ public class AutoLeftSwitch extends CommandGroup {
 
     public AutoLeftSwitch() {
     	//addSequential(new DriveDistance(1150, 0, .3));
+    	
+    	addParallel(new ManipulatorIn(1));
+
+    	addSequential(new DriveStraight(2000, .8));
+
+    	addParallel(new ManipulatorIn(.2));
+    	addSequential(new TurnGyro(90, .4));
+
+    	addParallel(new DriveStraight(400, .5));
+    	addSequential(new LiftToSwitch());
+    	
+    	addSequential(new ManipulatorOut(.5));
 
         // Add Commands here:
         // e.g. addSequential(new Command1());
