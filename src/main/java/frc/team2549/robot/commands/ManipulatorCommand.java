@@ -38,14 +38,15 @@ public class ManipulatorCommand extends Command {
     	else if(Robot.oi.getServoUp())
     		Robot.manipulator.servoRelease(false);
 
-//    	if(Robot.vision.sensingCube())
-//    		Robot.manipulator.takeIn();
-
     	if(Robot.oi.getManipulatorOut())
     		Robot.manipulator.pushOut();
     	else if(Robot.oi.getManipulatorIn())
     		Robot.manipulator.takeIn();
-    	else Robot.manipulator.stop();
+    	else {
+    		if(Robot.vision.sensingCube() == 1 && !Robot.manipulator.cubeIn())
+        		Robot.manipulator.takeIn();
+        	else Robot.manipulator.stop();
+    	}
     }
 
     // https://wpilib.screenstepslive.com/s/currentCS/m/cpp/l/241909-using-limit-switches-to-control-behavior

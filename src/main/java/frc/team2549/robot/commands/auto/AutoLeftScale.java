@@ -18,12 +18,10 @@ public class AutoLeftScale extends CommandGroup {
     	addParallel(new ManipulatorIn(.2));
     	addSequential(new TurnGyro(20, .5));
     	
-    	
     	addSequential(new LiftToScale());
     	addSequential(new DriveStraight(300, .5));
 
     	addSequential(new ManipulatorOut(.5));
-    	
 
         // Add Commands here:
         // e.g. addSequential(new Command1());

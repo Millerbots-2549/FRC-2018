@@ -11,7 +11,7 @@ public class AutoTest extends CommandGroup {
     	//addParallel(new DriveDistance(200, .5));
     	//addSequential(new TurnGyro(100, .4));
     	
-    	addSequential(new DriveDistance(1500, .4, ))
+    	//addSequential(new DriveDistance(1500, .4, ))
 
         // Add Commands here:
         // e.g. addSequential(new Command1());
