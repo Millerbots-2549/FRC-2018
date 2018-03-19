@@ -14,7 +14,7 @@ public class ManipulatorSubsystem extends Subsystem {
 
     private Talon motor;
     private DigitalInput boxIn;
-    private double speed;
+    private double speedOut, speedIn;
 
     //TODO this servo should be a separate subsystem with its own commands for controlling it
     private Servo servo;
@@ -27,7 +27,8 @@ public class ManipulatorSubsystem extends Subsystem {
         boxIn = new DigitalInput(RobotMap.boxIn);
         servoDownPos = .4;
         servoUpPos = 1; // change these
-        speed = 1;
+        speedOut = 1;
+        speedIn = 1;
     }
 
     public void initDefaultCommand() {
@@ -35,7 +36,7 @@ public class ManipulatorSubsystem extends Subsystem {
     }
 
     public void setSpeed(double speed) {
-    	this.speed = speed;
+    	this.speedIn = speed;
     }
 
     public void servoRelease(boolean set) {
@@ -47,11 +48,11 @@ public class ManipulatorSubsystem extends Subsystem {
 
     public void takeIn() {
     	if(!cubeIn())
-    		motor.set(-speed);
+    		motor.set(-speedIn);
     }
 
     public void pushOut() {
-        motor.set(speed);
+        motor.set(speedOut);
     }
     
     public void stop() {

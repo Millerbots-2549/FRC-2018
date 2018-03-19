@@ -17,7 +17,7 @@ public class DriveStraight extends Command {
         // eg. requires(chassis);
         requires(Robot.drivetrain);
         this.distance = distance;
-        this.speed = -speed;
+        this.speed = speed;
     }
     
     public DriveStraight(double distance, double speed, double targetAngle) {
@@ -25,7 +25,7 @@ public class DriveStraight extends Command {
         // eg. requires(chassis);
         requires(Robot.drivetrain);
         this.distance = distance;
-        this.speed = -speed;
+        this.speed = speed;
         this.targetAngle = targetAngle;
     }
 

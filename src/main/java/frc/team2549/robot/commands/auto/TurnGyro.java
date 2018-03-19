@@ -15,7 +15,7 @@ public class TurnGyro extends Command {
         // eg. requires(chassis);
         requires(Robot.drivetrain);
         this.angle = angle;
-        this.speed = -speed;
+        this.speed = speed;
     }
 
     // Called just before this Command runs the first time

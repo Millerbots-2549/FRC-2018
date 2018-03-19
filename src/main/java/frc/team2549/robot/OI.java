@@ -31,6 +31,10 @@ public class OI {
     private int joyManipulatorOutN = 1;
     private int joyServoDownN = 4;
     private int joyServoUpN = 5;
+    private int joyPickUpCubeN = 5;
+    private int joyRecordN = 6;
+    private int joyRecordEndN = 7;
+    private int joyPlayN = 8;
 
     private Button joyLiftFloor = new JoystickButton(joyL, joyLiftFloorN);
     private Button joyLiftSwitch = new JoystickButton(joyL, joyLiftSwitchN);
@@ -41,6 +45,10 @@ public class OI {
     private Button joyManipulatorOut = new JoystickButton(joyR, joyManipulatorOutN);
     private Button joyServoDown = new JoystickButton(joyR, joyServoDownN);
     private Button joyServoUp = new JoystickButton(joyR, joyServoUpN);
+    private Button joyPickUpCube = new JoystickButton(joyL, joyPickUpCubeN);
+    private Button joyRecord = new JoystickButton(joyL, joyRecordN);
+    private Button joyRecordEnd = new JoystickButton(joyL, joyRecordEndN);
+    private Button joyPlay = new JoystickButton(joyL, joyPlayN);
 
     ///////////////////////////////////////////////////////////////////////////
     // CONTROLLER
@@ -82,13 +90,13 @@ public class OI {
     }
     
     public double getDriveL() {
-    	if(ctrlType == ControllerType.joystick) return joyL.getRawAxis(joyDriveAxis);
+    	if(ctrlType == ControllerType.joystick) return -joyL.getRawAxis(joyDriveAxis);
     	else if(ctrlType == ControllerType.controller) return ctrl.getRawAxis(ctrlDriveL);
     	return 0;
     }
     
     public double getDriveR() {
-    	if(ctrlType == ControllerType.joystick) return joyR.getRawAxis(joyDriveAxis);
+    	if(ctrlType == ControllerType.joystick) return -joyR.getRawAxis(joyDriveAxis);
     	else if(ctrlType == ControllerType.controller) return ctrl.getRawAxis(ctrlDriveR);
     	return 0;
     }
@@ -143,6 +151,26 @@ public class OI {
     public boolean getServoUp() {
     	if(ctrlType == ControllerType.joystick) return joyServoUp.get();
     	else if(ctrlType == ControllerType.controller) return ctrlServoUp.get();
+    	return false;
+    }
+    
+    public boolean getPickUpCube() {
+    	if(ctrlType == ControllerType.joystick) return joyPickUpCube.get();
+    	return false;
+    }
+    
+    public boolean getRecord() {
+    	if(ctrlType == ControllerType.joystick) return joyRecord.get();
+    	return false;
+    }
+    
+    public boolean getRecordEnd() {
+    	if(ctrlType == ControllerType.joystick) return joyRecordEnd.get();
+    	return false;
+    }
+    
+    public boolean getPlay() {
+    	if(ctrlType == ControllerType.joystick) return joyPlay.get();
     	return false;
     }
 

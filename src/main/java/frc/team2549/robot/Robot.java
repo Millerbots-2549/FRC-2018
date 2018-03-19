@@ -1,5 +1,7 @@
 package frc.team2549.robot;
 
+import java.io.IOException;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -8,6 +10,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.team2549.robot.util.AutoRecord;
+import frc.team2549.robot.util.AutoPlay;
 
 import frc.team2549.robot.subsystems.DrivetrainSubsystem;
 import frc.team2549.robot.subsystems.LiftSubsystem;
@@ -51,6 +56,9 @@ public class Robot extends IterativeRobot {
     public static NetworkTableInstance tableInst;
     public static NetworkTable table;
     Command autonomousCommand;
+    
+    private static AutoRecord recorder;
+    private static AutoPlay player;
 
     public static OI.ControllerType getControllerType() {
         return ctrlChooser.getSelected();
@@ -228,16 +236,19 @@ public class Robot extends IterativeRobot {
         	else if(gameData.charAt(0) == 'T') {
         		System.out.println("Auto Test");
         		autonomousCommand = new AutoTest();
-        	} else {
+        	} else if(gameData.charAt(0) == 'N'){
         		System.out.println("No Auto");
+        		autonomousCommand = null;
+        	} else {
+        		System.out.println("Null Auto");
         		autonomousCommand = null;
         	}
         	this.autonomousCommand = autonomousCommand;
         }
-        
+
         manipulator.servoRelease(true);
     	drivetrain.resetSensors();
-        
+
         // schedule the autonomous command (example)
         if (autonomousCommand != null)
             autonomousCommand.start();
@@ -260,9 +271,22 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null)
             autonomousCommand.cancel();
+        
+//        try {
+//			recorder = new AutoRecord("teleop.csv");
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//        try {
+//			player = new AutoPlay();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
         drivetrain.resetSensors();
-        
+
         updateDashboard();
     }
 
@@ -279,6 +303,18 @@ public class Robot extends IterativeRobot {
                 drivetrain.setSpeed(.5);
                 break;
         }
+        
+//        if(oi.getRecord()) {
+//        	System.out.println("Recording...");
+//        }
+//        else if(oi.getRecordEnd()) {
+//        	try {
+//				recorder.end();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//        }
 
         Scheduler.getInstance().run();
         updateDashboard();
@@ -300,6 +336,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Encoder Average", drivetrain.getEncoderAvg());
         SmartDashboard.putNumber("Left Sonar", drivetrain.getSonar(0));
         SmartDashboard.putNumber("Right Sonar", drivetrain.getSonar(1));
+        SmartDashboard.putNumber("Average Sonar", drivetrain.getSonarAvg());
         SmartDashboard.putNumber("Angle", drivetrain.getAngle());
         
 //        SmartDashboard.putNumber("IMU Temp", drivetrain.getIMU().getTemperature());
@@ -312,6 +349,8 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Manip Motors", manipulator.getMotors());
         SmartDashboard.putNumber("Servo Release", manipulator.getServo());
         SmartDashboard.putBoolean("Cube In", manipulator.cubeIn());
+        SmartDashboard.putNumber("CubeX", vision.getCubeX());
+        SmartDashboard.putNumber("CubeY", vision.getCubeY());
 
         // Lift
         SmartDashboard.putNumber("Lift Motor", lift.getMotor());

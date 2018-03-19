@@ -16,8 +16,8 @@ public class DriveDistance extends Command {
         // eg. requires(chassis);
         requires(Robot.drivetrain);
         this.distance = distance;
-        this.leftSpeed = -leftSpeed;
-        this.rightSpeed = -rightSpeed;
+        this.leftSpeed = leftSpeed;
+        this.rightSpeed = rightSpeed;
     }
 
     // Called just before this Command runs the first time

@@ -10,9 +10,9 @@ public class AutoRecord {
 	FileWriter writer;
 	long startTime;
 	
-	public AutoRecord() throws IOException {
+	public AutoRecord(String filename) throws IOException {
 		startTime = System.currentTimeMillis();
-		writer = new FileWriter("/home/lvuser/auto/test.csv");
+		writer = new FileWriter("/home/lvuser/auto/" + filename);
 	}
 	
 	public void record() throws IOException {
@@ -23,7 +23,7 @@ public class AutoRecord {
 			writer.append("," + Robot.drivetrain.getMotor(0));
 			writer.append("," + Robot.drivetrain.getMotor(1));
 			
-			// Delimiter / end of this line
+			// Delimiter or end of this line
 			writer.append("\n");
 		}
 	}

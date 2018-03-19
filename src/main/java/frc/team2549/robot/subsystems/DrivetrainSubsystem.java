@@ -58,7 +58,7 @@ public class DrivetrainSubsystem extends Subsystem {
     }
 
     public void driveTank(double left, double right) {
-        drive.tankDrive(left * speed, right * speed);
+        drive.tankDrive(-left * speed, -right * speed);
     }
 
     public void setSpeed(double speed) {
@@ -119,6 +119,10 @@ public class DrivetrainSubsystem extends Subsystem {
         default:
             return 0;
     	}
+    }
+    
+    public int getSonarAvg() {
+    	return (getSonar(0) + getSonar(1)) / 2;
     }
     
     public void resetSensors() {
