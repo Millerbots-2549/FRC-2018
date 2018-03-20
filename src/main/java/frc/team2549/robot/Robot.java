@@ -59,6 +59,7 @@ public class Robot extends IterativeRobot {
     
     private static AutoRecord recorder;
     private static AutoPlay player;
+    private static boolean isRecording;
 
     public static OI.ControllerType getControllerType() {
         return ctrlChooser.getSelected();
@@ -230,7 +231,6 @@ public class Robot extends IterativeRobot {
         		System.out.println("Auto Left Right Scale");
         		autonomousCommand = new AutoLeftRightScale();
         	}
-        	
         	// #####################################################
         	// TEST
         	else if(gameData.charAt(0) == 'T') {
@@ -271,19 +271,6 @@ public class Robot extends IterativeRobot {
         // this line or comment it out.
         if (autonomousCommand != null)
             autonomousCommand.cancel();
-        
-//        try {
-//			recorder = new AutoRecord("teleop.csv");
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//        try {
-//			player = new AutoPlay();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 
         drivetrain.resetSensors();
 
@@ -300,21 +287,9 @@ public class Robot extends IterativeRobot {
                 drivetrain.setSpeed(1);
                 break;
             case half:
-                drivetrain.setSpeed(.5);
+                drivetrain.setSpeed(.6);
                 break;
         }
-        
-//        if(oi.getRecord()) {
-//        	System.out.println("Recording...");
-//        }
-//        else if(oi.getRecordEnd()) {
-//        	try {
-//				recorder.end();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//        }
 
         Scheduler.getInstance().run();
         updateDashboard();
@@ -338,7 +313,7 @@ public class Robot extends IterativeRobot {
         SmartDashboard.putNumber("Right Sonar", drivetrain.getSonar(1));
         SmartDashboard.putNumber("Average Sonar", drivetrain.getSonarAvg());
         SmartDashboard.putNumber("Angle", drivetrain.getAngle());
-        
+
 //        SmartDashboard.putNumber("IMU Temp", drivetrain.getIMU().getTemperature());
 //        SmartDashboard.putNumber("IMU Pres", drivetrain.getIMU().getBarometricPressure());
 //        SmartDashboard.putNumber("IMU MagX", drivetrain.getIMU().getMagX());

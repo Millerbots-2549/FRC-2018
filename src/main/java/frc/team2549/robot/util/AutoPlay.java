@@ -19,7 +19,7 @@ public class AutoPlay {
 		scanner.useDelimiter(",|\\n");
 		startTime = System.currentTimeMillis();
 	}
-	
+
 	public void play() {
 		if((scanner != null) && (scanner.hasNextDouble())) {
 			double t_delta;
