@@ -1,5 +1,6 @@
 package frc.team2549.robot.commands.auto;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2549.robot.Robot;
 
@@ -8,6 +9,7 @@ import frc.team2549.robot.Robot;
  */
 public class LiftToSwitch extends Command {
 
+	double timeout, startTime;
     public LiftToSwitch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -16,6 +18,10 @@ public class LiftToSwitch extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+//    	Robot.lift.raiseLift();
+    	timeout = 2;
+    	startTime = Timer.getFPGATimestamp();
+    	System.out.println("LiftToSwitch");
     	if(Robot.lift.isAtFloor())
     		Robot.lift.raiseLift();
     	else if(Robot.lift.isAtScale())
@@ -28,7 +34,9 @@ public class LiftToSwitch extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.lift.isAtSwitch();
+//        return Timer.getFPGATimestamp() - startingTime >= time;
+    	return Robot.lift.isAtSwitch()
+    			|| Timer.getFPGATimestamp() - startTime >= timeout;
     }
 
     // Called once after isFinished returns true

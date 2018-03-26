@@ -13,9 +13,10 @@ public class AutoRightSwitch extends CommandGroup {
     	addSequential(new DriveStraight(2000, .8));
 
     	addParallel(new ManipulatorIn(.2));
-    	addSequential(new TurnGyro(-90, .4));
+    	addSequential(new TurnGyro(-90, .6));
 
-    	addParallel(new DriveStraight(400, .5));
+    	addParallel(new ManipulatorIn(.2));
+    	addParallel(new DriveStraight(200, .5));
     	addSequential(new LiftToSwitch());
     	
     	addSequential(new ManipulatorOut(.5));

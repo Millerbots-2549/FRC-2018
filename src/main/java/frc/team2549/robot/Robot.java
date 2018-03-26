@@ -17,6 +17,7 @@ import frc.team2549.robot.commands.auto.AutoRightLeftScale;
 import frc.team2549.robot.commands.auto.AutoRightScale;
 import frc.team2549.robot.commands.auto.AutoRightSwitch;
 import frc.team2549.robot.commands.auto.AutoTest;
+import frc.team2549.robot.commands.auto.AutoDefault;
 import frc.team2549.robot.subsystems.CameraSubsystem;
 import frc.team2549.robot.subsystems.DrivetrainSubsystem;
 import frc.team2549.robot.subsystems.LiftSubsystem;
@@ -165,8 +166,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	private Command getDefaultAutoCommand() {
-		// TODO create a default auto comamnd like just drive forward
-		return null;
+		System.out.println("Auto Left Scale");
+		return new AutoDefault();
 	}
 
 	private Command testPositionAuto(String gameData) {
@@ -208,9 +209,11 @@ public class Robot extends IterativeRobot {
 		if (gameData.charAt(0) == 'L' && objChooser.getSelected() == Objective.kswitch) {
 			System.out.println("Auto Left Switch");
 			autoCommand = new AutoLeftSwitch();
-		}
-		// LEFT POSITION, LEFT SCALE
-		else if (gameData.charAt(1) == 'L' && objChooser.getSelected() == Objective.scale) {
+		} else if (gameData.charAt(0) == 'R' && objChooser.getSelected() == Objective.kswitch
+				&& gameData.charAt(1) == 'L') {
+			System.out.println("Auto Left Scale");
+			autoCommand = new AutoLeftScale();
+		} else if (gameData.charAt(1) == 'L' && objChooser.getSelected() == Objective.scale) {
 			System.out.println("Auto Left Scale");
 			autoCommand = new AutoLeftScale();
 		} else if (gameData.charAt(1) == 'R' && objChooser.getSelected() == Objective.scale
@@ -220,7 +223,7 @@ public class Robot extends IterativeRobot {
 		} else if (gameData.charAt(1) == 'R' && objChooser.getSelected() == Objective.scale
 				&& gameData.charAt(0) == 'R') {
 			System.out.println("Auto Left Right Scale");
-			autoCommand = new AutoLeftRightScale();
+			autoCommand = null;
 		} else {
 			autoCommand = null;
 		}
@@ -234,12 +237,13 @@ public class Robot extends IterativeRobot {
 		if (gameData.charAt(0) == 'R' && objChooser.getSelected() == Objective.kswitch) {
 			System.out.println("Auto Right Right Switch");
 			autoCommand = new AutoRightSwitch();
-		}
-		// RIGHT POSITION, RIGHT SCALE
-		else if (gameData.charAt(1) == 'R' && objChooser.getSelected() == Objective.scale) {
+		} else if (gameData.charAt(0) == 'L' && objChooser.getSelected() == Objective.kswitch
+				&& gameData.charAt(1) == 'R') {
 			System.out.println("Auto Right Scale");
 			autoCommand = new AutoRightScale();
-
+		} else if (gameData.charAt(1) == 'R' && objChooser.getSelected() == Objective.scale) {
+			System.out.println("Auto Right Scale");
+			autoCommand = new AutoRightScale();
 		} else if (gameData.charAt(1) == 'L' && objChooser.getSelected() == Objective.scale
 				&& gameData.charAt(0) == 'R') {
 			System.out.println("Auto Right Right Switch");
@@ -247,7 +251,7 @@ public class Robot extends IterativeRobot {
 		} else if (gameData.charAt(1) == 'L' && objChooser.getSelected() == Objective.scale
 				&& gameData.charAt(0) == 'L') {
 			System.out.println("Auto Right Left Scale");
-			autoCommand = new AutoRightLeftScale();
+			autoCommand = null;
 		} else {
 			autoCommand = null;
 		}
@@ -257,9 +261,19 @@ public class Robot extends IterativeRobot {
 	private String fetchGameData() {
 		String gameData = null;
 
+		// if we got valid game data
+		// set string == data
+		// else
+		// set string == null
+		
+		// data = fetch()
+		// if data != null
+		//   run cmomands
+		// else
+		//DriverStation.getInstance().getMatchTime() < 10;
 		// TODO possible inifinite loop. MUST FIX.
 		try {
-			while (gameData == null || gameData == "") {
+			while (gameData == null || gameData == "" && DriverStation.getInstance().isAutonomous()) {
 				gameData = DriverStation.getInstance().getGameSpecificMessage();
 			}
 		} catch (Exception e) {
@@ -301,7 +315,7 @@ public class Robot extends IterativeRobot {
 			drivetrain.setSpeed(1);
 			break;
 		case half:
-			drivetrain.setSpeed(.6);
+			drivetrain.setSpeed(.5);
 			break;
 		}
 

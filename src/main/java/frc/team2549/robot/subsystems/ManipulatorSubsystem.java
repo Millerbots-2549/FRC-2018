@@ -16,7 +16,6 @@ public class ManipulatorSubsystem extends Subsystem {
     private DigitalInput boxIn;
     private double speedOut, speedIn;
 
-    //TODO this servo should be a separate subsystem with its own commands for controlling it
     private Servo servo;
     private double servoDownPos, servoUpPos;
 
@@ -28,7 +27,7 @@ public class ManipulatorSubsystem extends Subsystem {
         servoDownPos = .4;
         servoUpPos = 1; // change these
         speedOut = 1;
-        speedIn = 1;
+        speedIn = -1;
     }
 
     public void initDefaultCommand() {
@@ -48,7 +47,7 @@ public class ManipulatorSubsystem extends Subsystem {
 
     public void takeIn() {
     	if(!cubeIn())
-    		motor.set(-speedIn);
+    		motor.set(speedIn);
     }
 
     public void pushOut() {

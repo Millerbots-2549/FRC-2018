@@ -31,7 +31,8 @@ public class CameraSubsystem extends Subsystem {
     public CameraSubsystem() {
         super(CameraSubsystem.class.getSimpleName());
         
-        CameraServer.getInstance().startAutomaticCapture();
+        CameraServer.getInstance().startAutomaticCapture(0);
+        CameraServer.getInstance().startAutomaticCapture(1);
         
 //        table = NetworkTable.getTable("SmartDashboard");
         

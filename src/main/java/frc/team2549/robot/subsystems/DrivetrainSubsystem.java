@@ -93,7 +93,7 @@ public class DrivetrainSubsystem extends Subsystem {
     }
     
     public double getEncoderAvg() {
-    	return getEncoder(1);
+    	return -getEncoder(1);
     	//return (getEncoder(0) + getEncoder(1)) / 2;
     }
     

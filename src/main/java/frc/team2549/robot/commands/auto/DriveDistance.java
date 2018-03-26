@@ -1,5 +1,6 @@
 package frc.team2549.robot.commands.auto;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2549.robot.Robot;
 
@@ -9,7 +10,7 @@ import frc.team2549.robot.Robot;
 public class DriveDistance extends Command {
 
 	private double distance, startingDistance;
-	private double leftSpeed, rightSpeed;
+	private double leftSpeed, rightSpeed, timeout, startTime;
 	
     public DriveDistance(double distance, double leftSpeed, double rightSpeed) {
         // Use requires() here to declare subsystem dependencies
@@ -24,6 +25,8 @@ public class DriveDistance extends Command {
     protected void initialize() {
     	System.out.println("DriveDistance");
 //    	Robot.drivetrain.resetSensors();
+    	startTime = Timer.getFPGATimestamp();
+    	timeout = 7;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -33,7 +36,8 @@ public class DriveDistance extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return Robot.drivetrain.getEncoderAvg() >= distance;
+    	return Robot.drivetrain.getEncoderAvg() >= distance
+    			|| Timer.getFPGATimestamp() - startTime >= timeout;
     }
 
     // Called once after isFinished returns true

@@ -56,7 +56,7 @@ public class LiftSubsystem extends Subsystem {
 //    	motor.set(-speed);
     	if(isAtFloor())
     		stopLift();
-    	else motor.set(-speed*.75);
+    	else motor.set(-speed*.60);
     	moving = false;
     }
 
@@ -89,15 +89,15 @@ public class LiftSubsystem extends Subsystem {
     }
 
     public boolean isAtFloor() {
-    	return limitFloor.get();
+    	return !limitFloor.get();
     }
 
     public boolean isAtSwitch() {
-    	return limitSwitch.get();
+    	return !limitSwitch.get();
     }
 
     public boolean isAtScale() {
-    	return limitScale.get();
+    	return !limitScale.get();
     }
 
     public void moveToFloor() {

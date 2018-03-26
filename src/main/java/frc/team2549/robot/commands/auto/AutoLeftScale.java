@@ -13,15 +13,16 @@ public class AutoLeftScale extends CommandGroup {
 
     	addParallel(new ManipulatorIn(1));
 
-    	addSequential(new DriveStraight(3500, .8));
+    	addSequential(new DriveStraight(3400, 1));
 
     	addParallel(new ManipulatorIn(.2));
-    	addSequential(new TurnGyro(20, .5));
+    	addSequential(new TurnGyro(15, .5));
 
+    	addSequential(new ManipulatorIn(.2));
     	addParallel(new DriveStraight(750, .5));
     	addSequential(new LiftToScale());
-    	addSequential(new DriveStraight(300,.4));
-    	
+    	addSequential(new DriveStraight(300, .5));
+
     	addSequential(new ManipulatorOut(.5));
 
         // Add Commands here:
