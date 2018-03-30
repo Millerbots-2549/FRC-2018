@@ -4,24 +4,12 @@ import frc.team2549.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutoRightScale extends CommandGroup {
+public class AutoDefault extends CommandGroup {
 
-    public AutoRightScale() {
+    public AutoDefault() {
     	//addSequential(new DriveDistance(1150, 0, .3));
-
-    	addParallel(new ManipulatorIn(1));
-
-    	addSequential(new DriveStraight(3500, .8));
-
-    	addParallel(new ManipulatorIn(.2));
-    	addSequential(new TurnGyro(-20, .5));
-
-    	addSequential(new ManipulatorIn(.2));
-    	addParallel(new DriveStraight(750, .5));
-    	addSequential(new LiftToScale());
-    	addSequential(new DriveStraight(300,.4));
-
-    	addSequential(new ManipulatorOut(.5));
+    	
+    	addSequential(new DriveStraight(2000, .5));
 
         // Add Commands here:
         // e.g. addSequential(new Command1());

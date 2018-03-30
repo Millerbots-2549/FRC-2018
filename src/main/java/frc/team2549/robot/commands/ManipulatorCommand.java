@@ -17,8 +17,8 @@ public class ManipulatorCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if(!Robot.manipulator.getServoReleased())
-    		Robot.manipulator.servoRelease(true);
+//    	if(!Robot.manipulator.getServoReleased())
+//    		Robot.manipulator.servoRelease(true);
     	
     }
 

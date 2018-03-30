@@ -20,7 +20,7 @@ public class TurnGyro extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.drivetrain.resetSensors();
+    	Robot.drivetrain.resetSensors();
     	System.out.println("TurnGyro");
     	startingAngle = Robot.drivetrain.getAngle();
     }

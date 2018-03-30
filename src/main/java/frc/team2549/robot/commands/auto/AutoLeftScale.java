@@ -11,19 +11,45 @@ public class AutoLeftScale extends CommandGroup {
     	//addParallel(new DriveDistance(200, .5));
     	//addSequential(new TurnGyro(100, .4));
 
+    	// drive forwards
+    	System.out.println("'drive forwards");
     	addParallel(new ManipulatorIn(1));
-
-    	addSequential(new DriveStraight(3400, 1));
-
+    	addSequential(new DriveStraight(3000, 1));    	
+    	// turn
+    	System.out.println("'turn");
     	addParallel(new ManipulatorIn(.2));
-    	addSequential(new TurnGyro(15, .5));
-
+    	addSequential(new TurnGyro(15, .6));
+    	// drive forwards
+    	System.out.println("'drive forwards");
     	addSequential(new ManipulatorIn(.2));
     	addParallel(new DriveStraight(750, .5));
     	addSequential(new LiftToScale());
     	addSequential(new DriveStraight(300, .5));
-
+    	// shoot out
+    	System.out.println("'shoot out");
     	addSequential(new ManipulatorOut(.5));
+//    	// turn around
+//    	System.out.println("'turn around");
+//    	addSequential(new DriveStraight(750, -.5));
+//    	addParallel(new LiftToFloor());
+//    	addSequential(new TurnGyro(150, .6));
+//    	// pick up cube
+//    	System.out.println("'pick up cube");
+//    	addSequential(new PickUpCube());
+//    	// turn around
+//    	System.out.println("'turn around");
+//    	addSequential(new DriveStraight(300, -.5));
+//    	addParallel(new ManipulatorIn(.2));
+//    	addSequential(new TurnGyro(-160, .6));
+//    	// drive forwards
+//    	System.out.println("'drive forwards");
+//    	addSequential(new ManipulatorIn(.2));
+//    	addParallel(new DriveStraight(1000, .5));
+//    	addSequential(new LiftToScale());
+//    	addSequential(new DriveStraight(300, .5));
+//    	// shoot out
+//    	System.out.println("'shoot out");
+//    	addSequential(new ManipulatorOut(.5));
 
         // Add Commands here:
         // e.g. addSequential(new Command1());

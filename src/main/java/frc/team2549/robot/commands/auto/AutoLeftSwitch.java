@@ -9,15 +9,15 @@ public class AutoLeftSwitch extends CommandGroup {
     public AutoLeftSwitch() {
     	//addSequential(new DriveDistance(1150, 0, .3));
     	
-    	addParallel(new ManipulatorIn(1));
 
-    	addSequential(new DriveStraight(2000, .8));
+    	addParallel(new ManipulatorIn(1));
+    	addSequential(new DriveStraight(2000, 1));
 
     	addParallel(new ManipulatorIn(.2));
     	addSequential(new TurnGyro(90, .6));
 
     	addParallel(new ManipulatorIn(.2));
-    	addParallel(new DriveStraight(200, .5));
+    	addParallel(new DriveStraight(750, .6));
     	addSequential(new LiftToSwitch());
     	
     	addSequential(new ManipulatorOut(.5));

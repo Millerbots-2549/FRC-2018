@@ -22,7 +22,7 @@ public class DriveStraight extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	//Robot.drivetrain.resetSensors();
+    	Robot.drivetrain.resetSensors();
     	System.out.println("DriveStraight");
     	startingAngle = Robot.drivetrain.getAngle();
     	startingDistance = Robot.drivetrain.getEncoderAvg();

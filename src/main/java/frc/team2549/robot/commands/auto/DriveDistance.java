@@ -24,7 +24,7 @@ public class DriveDistance extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	System.out.println("DriveDistance");
-//    	Robot.drivetrain.resetSensors();
+    	Robot.drivetrain.resetSensors();
     	startTime = Timer.getFPGATimestamp();
     	timeout = 7;
     }
