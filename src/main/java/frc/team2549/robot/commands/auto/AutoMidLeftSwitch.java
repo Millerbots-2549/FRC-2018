@@ -7,15 +7,41 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoMidLeftSwitch extends CommandGroup {
 
     public AutoMidLeftSwitch() {
+    	double speed = .75;
+    	double turnSpeed = .6;
     	
     	addParallel(new ManipulatorIn(1));
     	
-    	addSequential(new DriveStraight(400, .6));
-    	addSequential(new TurnGyro(-50, .5));
-    	addSequential(new DriveStraight(1400, .6));
-    	addParallel(new ManipulatorIn(1));
-    	addSequential(new TurnGyro(45, .5));
-    	//addParallel(new DriveDistance(100, .5));
+    	addSequential(new DriveStraight(400, speed));
+    	addSequential(new TurnGyro(-90, turnSpeed));
+
+    	addSequential(new DriveStraight(1800, speed));
+    	addParallel(new ManipulatorIn(.3));
+
+    	addSequential(new TurnGyro(90, turnSpeed));
+    	addSequential(new ManipulatorIn(.1));
+
+    	addSequential(new DriveStraight(1000, .5));
+
+    	addSequential(new LiftToSwitch());
+    	// TODO change to prevent tech foul
+    	addParallel(new DriveStraight(200, .5));
+    	addSequential(new ManipulatorOut(.5));
+
+    	// 2 cube
+    	addParallel(new DriveDistance(1500, -speed, -speed));
+    	addSequential(new LiftToFloor());
+
+    	addSequential(new TurnGyro(55, turnSpeed));
+    	addParallel(new ManipulatorIn(3));
+    	addSequential(new DriveStraight(1000, speed));
+//    	addSequential(new PickUpCube());
+
+    	addSequential(new DriveDistance(1000, -speed, -speed));
+
+    	addSequential(new TurnGyro(-55, turnSpeed));
+    	
+    	addParallel(new DriveStraight(100, .5));
     	addSequential(new LiftToSwitch());
     	addSequential(new ManipulatorOut(.5));
 

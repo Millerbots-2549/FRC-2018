@@ -17,13 +17,14 @@ public class AutoLeftSwitch extends CommandGroup {
     	addSequential(new TurnGyro(90, .6));
 
     	addParallel(new ManipulatorIn(.2));
-    	addParallel(new DriveStraight(750, .6));
+    	addSequential(new DriveStraight(750, .6));
     	addSequential(new LiftToSwitch());
     	
     	addSequential(new ManipulatorOut(.5));
 
         // Add Commands here:
         // e.g. addSequential(new Command1());
+    	
         //      addSequential(new Command2());
         // these will run in order.
 

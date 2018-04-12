@@ -1,5 +1,6 @@
 package frc.team2549.robot.commands.auto;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.team2549.robot.Robot;
 
@@ -8,6 +9,8 @@ import frc.team2549.robot.Robot;
  */
 public class LiftToFloor extends Command {
 
+	double timeout, startTime;
+	
     public LiftToFloor() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -16,8 +19,10 @@ public class LiftToFloor extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.print("LiftToFloor");
+    	System.out.println("LiftToFloor");
     	Robot.lift.lowerLift();
+    	timeout = 3;
+    	startTime = Timer.getFPGATimestamp();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -26,7 +31,8 @@ public class LiftToFloor extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.lift.isAtFloor();
+        return Robot.lift.isAtFloor()
+        		|| Timer.getFPGATimestamp() - startTime >= timeout;
     }
 
     // Called once after isFinished returns true

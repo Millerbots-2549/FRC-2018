@@ -36,7 +36,7 @@ public class DriveDistance extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return Robot.drivetrain.getEncoderAvg() >= distance
+    	return Math.abs(Robot.drivetrain.getEncoderAvg()) >= distance
     			|| Timer.getFPGATimestamp() - startTime >= timeout;
     }
 

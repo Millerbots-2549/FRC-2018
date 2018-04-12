@@ -47,6 +47,7 @@ public class DriveStraight extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println("DriveStraight finished with " + Robot.drivetrain.getEncoderAvg());
     	Robot.drivetrain.driveTank(0, 0);
     }
 

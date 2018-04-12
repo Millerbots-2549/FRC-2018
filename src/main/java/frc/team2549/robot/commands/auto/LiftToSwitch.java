@@ -22,10 +22,11 @@ public class LiftToSwitch extends Command {
     	timeout = 2;
     	startTime = Timer.getFPGATimestamp();
     	System.out.println("LiftToSwitch");
-    	if(Robot.lift.isAtFloor())
-    		Robot.lift.raiseLift();
-    	else if(Robot.lift.isAtScale())
-    		Robot.lift.lowerLift();
+//    	if(Robot.lift.isAtFloor())
+//    		Robot.lift.raiseLift();
+//    	else if(Robot.lift.isAtScale())
+//    		Robot.lift.lowerLift();
+    	Robot.lift.raiseLift();
     }
 
     // Called repeatedly when this Command is scheduled to run
