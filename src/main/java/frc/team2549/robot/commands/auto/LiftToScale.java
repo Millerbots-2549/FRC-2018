@@ -21,7 +21,7 @@ public class LiftToScale extends Command {
     protected void initialize() {
     	System.out.println("LiftToScale");
     	Robot.lift.raiseLift();
-    	timeout = 4;
+    	timeout = 5;
     	startTime = Timer.getFPGATimestamp();
     }
 

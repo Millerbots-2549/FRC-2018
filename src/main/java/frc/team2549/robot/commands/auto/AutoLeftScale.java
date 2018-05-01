@@ -29,9 +29,9 @@ public class AutoLeftScale extends CommandGroup {
     	System.out.println("'shoot out");
     	addSequential(new ManipulatorOut(.5));
 //    	// turn around
-//    	System.out.println("'turn around");
-//    	addSequential(new DriveStraight(750, -.5));
-//    	addParallel(new LiftToFloor());
+    	System.out.println("'turn around");
+    	addSequential(new DriveStraight(750, -.5));
+    	addParallel(new LiftToFloor());
 //    	addSequential(new TurnGyro(150, .6));
 //    	// pick up cube
 //    	System.out.println("'pick up cube");

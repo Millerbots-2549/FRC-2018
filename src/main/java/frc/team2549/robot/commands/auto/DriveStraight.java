@@ -11,6 +11,7 @@ public class DriveStraight extends Command {
 
 	private double maxSpeed, speed, amount, angle,
 		startingAngle, distance, startingDistance;
+	double timeout, startTime;
 	
     public DriveStraight(double distance, double speed) {
         // Use requires() here to declare subsystem dependencies
@@ -18,6 +19,8 @@ public class DriveStraight extends Command {
         requires(Robot.drivetrain);
         this.distance = distance;
         this.maxSpeed = speed;
+        timeout = 5;
+    	startTime = Timer.getFPGATimestamp();
     }
 
     // Called just before this Command runs the first time
@@ -42,7 +45,8 @@ public class DriveStraight extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return Math.abs(Robot.drivetrain.getEncoderAvg() - startingDistance) >= distance;
+    	return Math.abs(Robot.drivetrain.getEncoderAvg() - startingDistance) >= distance
+    			|| Timer.getFPGATimestamp() - startTime >= timeout;
     }
 
     // Called once after isFinished returns true

@@ -7,8 +7,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoLeftSwitch extends CommandGroup {
 
     public AutoLeftSwitch() {
-    	//addSequential(new DriveDistance(1150, 0, .3));
-    	
 
     	addParallel(new ManipulatorIn(1));
     	addSequential(new DriveStraight(2000, 1));
@@ -17,8 +15,8 @@ public class AutoLeftSwitch extends CommandGroup {
     	addSequential(new TurnGyro(90, .6));
 
     	addParallel(new ManipulatorIn(.2));
-    	addSequential(new DriveStraight(750, .6));
     	addSequential(new LiftToSwitch());
+    	addSequential(new DriveStraight(750, .6));
     	
     	addSequential(new ManipulatorOut(.5));
 

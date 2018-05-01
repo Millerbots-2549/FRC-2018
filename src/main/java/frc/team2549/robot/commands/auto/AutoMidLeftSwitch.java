@@ -13,6 +13,7 @@ public class AutoMidLeftSwitch extends CommandGroup {
     	addParallel(new ManipulatorIn(1));
     	
     	addSequential(new DriveStraight(400, speed));
+    	//addParallel(new ManipulatorIn(.3));
     	addSequential(new TurnGyro(-90, turnSpeed));
 
     	addSequential(new DriveStraight(1800, speed));
@@ -21,29 +22,28 @@ public class AutoMidLeftSwitch extends CommandGroup {
     	addSequential(new TurnGyro(90, turnSpeed));
     	addSequential(new ManipulatorIn(.1));
 
-    	addSequential(new DriveStraight(1000, .5));
+    	addSequential(new DriveStraight(750, .5));
 
     	addSequential(new LiftToSwitch());
-    	// TODO change to prevent tech foul
-    	addParallel(new DriveStraight(200, .5));
+    	addSequential(new DriveStraight(500, .5));
     	addSequential(new ManipulatorOut(.5));
 
     	// 2 cube
-    	addParallel(new DriveDistance(1500, -speed, -speed));
-    	addSequential(new LiftToFloor());
-
-    	addSequential(new TurnGyro(55, turnSpeed));
-    	addParallel(new ManipulatorIn(3));
-    	addSequential(new DriveStraight(1000, speed));
-//    	addSequential(new PickUpCube());
-
-    	addSequential(new DriveDistance(1000, -speed, -speed));
-
-    	addSequential(new TurnGyro(-55, turnSpeed));
-    	
-    	addParallel(new DriveStraight(100, .5));
-    	addSequential(new LiftToSwitch());
-    	addSequential(new ManipulatorOut(.5));
+//    	addParallel(new DriveDistance(1500, -speed, -speed));
+//    	addSequential(new LiftToFloor());
+//
+//    	addSequential(new TurnGyro(55, turnSpeed));
+//    	addParallel(new ManipulatorIn(3));
+//    	addSequential(new DriveStraight(1000, speed));
+////    	addSequential(new PickUpCube());
+//
+//    	addSequential(new DriveDistance(1000, -speed, -speed));
+//
+//    	addSequential(new TurnGyro(-55, turnSpeed));
+//    	
+//    	addParallel(new DriveStraight(100, .5));
+//    	addSequential(new LiftToSwitch());
+//    	addSequential(new ManipulatorOut(.5));
 
         // Add Commands here:
         // e.g. addSequential(new Command1());

@@ -9,42 +9,42 @@ public class AutoMidRightSwitch extends CommandGroup {
     public AutoMidRightSwitch() {
     	//addSequential(new DriveDistance(1150, 0, .3));
     	
-    	addSequential(new DriveStraight(1400, .75));
+    	addSequential(new DriveStraight(1250, .75));
 
-    	addParallel(new LiftToSwitch());
+    	addSequential(new LiftToSwitch());
     	addSequential(new DriveStraight(500, .5));
     	addSequential(new ManipulatorOut(.3));
 
     	// 2 cube
     	
-    	addParallel(new LiftToFloor());
-    	addSequential(new DriveDistance(1000, -.75, -.75));
-    	
-    	addSequential(new TurnGyro(-45, .5));
-    	addParallel(new ManipulatorIn(3));
-    	addSequential(new DriveStraight(750, .75));
-    	
-    	addSequential(new DriveDistance(750, -.75, -.75));
-    	addSequential(new TurnGyro(45, .5));
-    	
-    	addSequential(new DriveStraight(1000, .75));
-    	addSequential(new LiftToSwitch());
-    	addSequential(new ManipulatorOut(.3));
-    	addParallel(new ManipulatorIn(1));
-    	
-    	addSequential(new DriveStraight(400, .6));
-    	
-    	addSequential(new TurnGyro(20, .5));
-    	
-    	addSequential(new DriveStraight(1000, .6));
-    	
-    	addParallel(new ManipulatorIn(1));
-    	addSequential(new TurnGyro(-20, .5));
-    	
-    	addParallel(new DriveStraight(100, .5));
-    	addSequential(new LiftToSwitch());
-    	
-    	addSequential(new ManipulatorOut(.5));
+//    	addParallel(new LiftToFloor());
+//    	addSequential(new DriveDistance(1000, -.75, -.75));
+//    	
+//    	addSequential(new TurnGyro(-45, .5));
+//    	addParallel(new ManipulatorIn(3));
+//    	addSequential(new DriveStraight(750, .75));
+//    	
+//    	addSequential(new DriveDistance(750, -.75, -.75));
+//    	addSequential(new TurnGyro(45, .5));
+//    	
+//    	addSequential(new DriveStraight(1000, .75));
+//    	addSequential(new LiftToSwitch());
+//    	addSequential(new ManipulatorOut(.3));
+//    	addParallel(new ManipulatorIn(1));
+//    	
+//    	addSequential(new DriveStraight(400, .6));
+//    	
+//    	addSequential(new TurnGyro(20, .5));
+//    	
+//    	addSequential(new DriveStraight(1000, .6));
+//    	
+//    	addParallel(new ManipulatorIn(1));
+//    	addSequential(new TurnGyro(-20, .5));
+//    	
+//    	addParallel(new DriveStraight(100, .5));
+//    	addSequential(new LiftToSwitch());
+//    	
+//    	addSequential(new ManipulatorOut(.5));
 
         // Add Commands here:
         // e.g. addSequential(new Command1());
