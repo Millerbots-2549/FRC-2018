@@ -8,6 +8,12 @@ plugins {
 def TEAM = 2549
 def ROBOT_CLASS = "frc.team2549.robot.Robot"
 
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project EmbeddedTools.
 deploy {
@@ -30,6 +36,9 @@ dependencies {
     compile ctre()
     compile navx()
     compile openrio.powerup.matchData()
+
+    // see https://github.com/juchong/ADIS16448-RoboRIO-Driver
+    compile 'com.github.juchong:ADIS16448-RoboRIO-Driver:master-SNAPSHOT'
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
